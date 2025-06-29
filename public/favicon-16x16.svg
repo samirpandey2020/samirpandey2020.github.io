@@ -1,0 +1,30 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with rounded corners -->
+  <rect width="16" height="16" rx="3" fill="url(#bgGradient)"/>
+  
+  <!-- Main code symbol -->
+  <g transform="translate(4, 4)">
+    <!-- Left bracket -->
+    <path d="M2 1L1 4L2 7" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Right bracket -->
+    <path d="M6 1L7 4L6 7" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Center code lines -->
+    <path d="M3 2L4 4L3 6" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5 3L4 4L5 5" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Small accent dots -->
+  <circle cx="3" cy="3" r="0.5" fill="white" opacity="0.7"/>
+  <circle cx="13" cy="13" r="0.5" fill="white" opacity="0.7"/>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E293B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg> 

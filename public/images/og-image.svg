@@ -1,0 +1,69 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Background pattern -->
+  <g opacity="0.1">
+    <circle cx="100" cy="100" r="2" fill="white"/>
+    <circle cx="1100" cy="530" r="2" fill="white"/>
+    <circle cx="200" cy="500" r="1.5" fill="white"/>
+    <circle cx="1000" cy="130" r="1.5" fill="white"/>
+    <circle cx="300" cy="200" r="1" fill="white"/>
+    <circle cx="900" cy="430" r="1" fill="white"/>
+  </g>
+  
+  <!-- Main content area -->
+  <g transform="translate(100, 100)">
+    <!-- Code symbol -->
+    <g transform="translate(50, 50)">
+      <!-- Left bracket -->
+      <path d="M60 30L30 150L60 270" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      
+      <!-- Right bracket -->
+      <path d="M180 30L210 150L180 270" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      
+      <!-- Center code lines -->
+      <path d="M90 60L120 150L90 240" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M150 90L120 150L150 210" stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    
+    <!-- Text content -->
+    <g transform="translate(400, 50)">
+      <!-- Name -->
+      <text x="0" y="80" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white">
+        Samir Pandey
+      </text>
+      
+      <!-- Title -->
+      <text x="0" y="140" font-family="Arial, sans-serif" font-size="36" fill="#E2E8F0">
+        Full Stack Developer
+      </text>
+      
+      <!-- Skills -->
+      <text x="0" y="200" font-family="Arial, sans-serif" font-size="24" fill="#94A3B8">
+        React • Django • Python • TypeScript • AWS • Docker
+      </text>
+      
+      <!-- Location -->
+      <text x="0" y="240" font-family="Arial, sans-serif" font-size="20" fill="#64748B">
+        Kathmandu, Nepal
+      </text>
+    </g>
+  </g>
+  
+  <!-- Bottom accent -->
+  <rect x="0" y="580" width="1200" height="50" fill="url(#accentGradient)"/>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E293B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#334155;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#475569;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg> 
