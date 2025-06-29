@@ -1,0 +1,48 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run type checking
+      run: npm run type-check
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Check build output
+      run: |
+        if [ ! -d "dist" ]; then
+          echo "❌ Build failed: dist directory not found"
+          exit 1
+        fi
+        echo "✅ Build successful"
+        
+    - name: Check for TypeScript errors
+      run: |
+        if npm run type-check 2>&1 | grep -q "error"; then
+          echo "❌ TypeScript errors found"
+          npm run type-check
+          exit 1
+        fi
+        echo "✅ No TypeScript errors" 
