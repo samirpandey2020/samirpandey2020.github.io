@@ -31,4 +31,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: main # <-- or gh-pages, if that's your target
           force_orphan: true
+          user_name: samirpandey2020
+          user_email: pandeysamir0404@gmail.com
