@@ -1,10 +1,3 @@
-name: Deploy to Main
-
-on:
-  push:
-    branches:
-      - production
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -26,12 +19,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Main Branch
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: main # <-- or gh-pages, if that's your target
+          publish_branch: gh-pages 
           force_orphan: true
-          user_name: samirpandey2020
-          user_email: pandeysamir0404@gmail.com
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
