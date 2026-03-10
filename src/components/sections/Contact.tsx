@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Mail, Phone, MapPin, Send, CheckCircle, Github, Linkedin, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Loader2, Globe, MessageSquare } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
-// EmailJS interface
-interface EmailJS {
-  send: (serviceId: string, templateId: string, templateParams: Record<string, string>, publicKey: string) => Promise<void>;
-}
-
-interface WindowWithEmailJS extends Window {
-  emailjs?: EmailJS;
-}
-
-const { personal, social } = PORTFOLIO_DATA;
+const { personal } = PORTFOLIO_DATA;
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({ first: '', last: '', email: '', subject: '', message: '' });
@@ -29,279 +19,170 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('loading');
 
-    try {
-      const emailjs = (window as WindowWithEmailJS).emailjs;
-      
-      if (emailjs) {
-        // Method 1: EmailJS (if configured)
-        const mainEmailParams = {
-          from_name: `${form.first} ${form.last}`,
-          from_email: form.email,
-          subject: form.subject,
-          message: form.message,
-          to_email: personal.email,
-        };
-
-        // Send main email to you
-        await emailjs.send(
-          'your_service_id', // Replace with your EmailJS service ID
-          'your_template_id', // Replace with your EmailJS template ID
-          mainEmailParams,
-          'your_public_key' // Replace with your EmailJS public key
-        );
-
-        setStatus('success');
-        setForm({ first: '', last: '', email: '', subject: '', message: '' });
-      } else {
-        // Method 2: Fallback to mailto link (opens user's email client)
-        const mailtoLink = `mailto:${personal.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(
-          `Name: ${form.first} ${form.last}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
-        )}`;
-        window.open(mailtoLink, '_blank');
-        setStatus('success');
-        setForm({ first: '', last: '', email: '', subject: '', message: '' });
-      }
-    } catch (error) {
-      console.error('Error sending email:', error);
-      setStatus('error');
-    }
+    setTimeout(() => {
+      const mailtoLink = `mailto:${personal.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(
+        `Name: ${form.first} ${form.last}\nEmail: ${form.email}\n\nMessage:\n${form.message}`
+      )}`;
+      window.open(mailtoLink, '_blank');
+      setStatus('success');
+      setForm({ first: '', last: '', email: '', subject: '', message: '' });
+    }, 1000);
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      <div className="container mx-auto px-4">
+    <section id="contact" className="section-padding bg-background relative overflow-hidden bg-grid">
+      <div className="container mx-auto px-8 lg:px-12 relative z-10">
         <motion.div
-          className="text-center mb-16"
-          variants={fadeInUp}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Get In <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Touch</span>
-          </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Let's work together! I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12"
+          className="max-w-6xl"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
         >
-          {/* Contact Form */}
-          <motion.div variants={fadeInUp}>
-            <Card className="border-0 shadow-2xl bg-white/10 dark:bg-slate-900/30 backdrop-blur-lg rounded-2xl">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <motion.div 
-                      className="relative"
-                      variants={staggerItem}
-                    >
-                      <input
-                        name="first"
-                        value={form.first}
-                        onChange={handleChange}
-                        required
-                        className="peer w-full px-4 py-3 bg-transparent border-b-2 border-slate-400 text-white placeholder-transparent focus:outline-none focus:border-blue-500 transition"
-                        placeholder="First Name"
-                      />
-                      <label className="absolute left-4 top-3 text-slate-400 text-base transition-all duration-200 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-5 peer-focus:text-xs peer-focus:text-blue-400 peer-focus:font-semibold">
-                        First Name
-                      </label>
-                    </motion.div>
-                    <motion.div 
-                      className="relative"
-                      variants={staggerItem}
-                    >
-                      <input
-                        name="last"
-                        value={form.last}
-                        onChange={handleChange}
-                        required
-                        className="peer w-full px-4 py-3 bg-transparent border-b-2 border-slate-400 text-white placeholder-transparent focus:outline-none focus:border-blue-500 transition"
-                        placeholder="Last Name"
-                      />
-                      <label className="absolute left-4 top-3 text-slate-400 text-base transition-all duration-200 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-5 peer-focus:text-xs peer-focus:text-blue-400 peer-focus:font-semibold">
-                        Last Name
-                      </label>
-                    </motion.div>
-                  </div>
-                  <motion.div 
-                    className="relative"
-                    variants={staggerItem}
-                  >
-                    <input
-                      name="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      required
-                      type="email"
-                      className="peer w-full px-4 py-3 bg-transparent border-b-2 border-slate-400 text-white placeholder-transparent focus:outline-none focus:border-blue-500 transition"
-                      placeholder="Email"
-                    />
-                    <label className="absolute left-4 top-3 text-slate-400 text-base transition-all duration-200 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-5 peer-focus:text-xs peer-focus:text-blue-400 peer-focus:font-semibold">
-                      Email
-                    </label>
-                  </motion.div>
-                  <motion.div 
-                    className="relative"
-                    variants={staggerItem}
-                  >
-                    <input
-                      name="subject"
-                      value={form.subject}
-                      onChange={handleChange}
-                      required
-                      className="peer w-full px-4 py-3 bg-transparent border-b-2 border-slate-400 text-white placeholder-transparent focus:outline-none focus:border-blue-500 transition"
-                      placeholder="Subject"
-                    />
-                    <label className="absolute left-4 top-3 text-slate-400 text-base transition-all duration-200 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-5 peer-focus:text-xs peer-focus:text-blue-400 peer-focus:font-semibold">
-                      Subject
-                    </label>
-                  </motion.div>
-                  <motion.div 
-                    className="relative"
-                    variants={staggerItem}
-                  >
-                    <textarea
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      className="peer w-full px-4 py-3 bg-transparent border-b-2 border-slate-400 text-white placeholder-transparent focus:outline-none focus:border-blue-500 transition resize-none"
-                      placeholder="Message"
-                    />
-                    <label className="absolute left-4 top-3 text-slate-400 text-base transition-all duration-200 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-5 peer-focus:text-xs peer-focus:text-blue-400 peer-focus:font-semibold">
-                      Message
-                    </label>
-                  </motion.div>
-                  {status === 'success' && (
-                    <motion.div 
-                      className="flex items-center gap-2 text-green-400 font-semibold"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <CheckCircle className="h-5 w-5" /> Message sent successfully!
-                    </motion.div>
-                  )}
-                  {status === 'error' && (
-                    <motion.div 
-                      className="flex items-center gap-2 text-red-400 font-semibold"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <span>❌</span> Please fill all fields correctly.
-                    </motion.div>
-                  )}
-                  <motion.div
-                    variants={staggerItem}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Button
-                      type="submit"
-                      disabled={status === 'loading'}
-                      className="w-full py-4 text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {status === 'loading' ? (
-                        <Loader2 className="animate-spin h-5 w-5" />
-                      ) : (
-                        <Send className="h-5 w-5" />
-                      )}
-                      {status === 'loading' ? 'Sending...' : 'Send Message'}
-                    </Button>
-                  </motion.div>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-          
-          {/* Contact Methods & Socials */}
-          <motion.div 
-            className="flex flex-col gap-8"
+          <motion.div
+            className="mb-24 flex justify-between items-end border-b border-border pb-12"
             variants={fadeInUp}
           >
-            {/* Contact Info */}
-            <div className="space-y-6">
-              <motion.div
-                variants={staggerItem}
-                className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-lg rounded-xl"
-              >
-                <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-3 rounded-full">
-                  <Mail className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-semibold text-white">Email</div>
-                  <div className="text-slate-300">{personal.email}</div>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                variants={staggerItem}
-                className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-lg rounded-xl"
-              >
-                <div className="bg-gradient-to-br from-green-500 to-emerald-600 p-3 rounded-full">
-                  <Phone className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-semibold text-white">Phone</div>
-                  <div className="text-slate-300">{personal.phone}</div>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                variants={staggerItem}
-                className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-lg rounded-xl"
-              >
-                <div className="bg-gradient-to-br from-orange-500 to-red-600 p-3 rounded-full">
-                  <MapPin className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <div className="font-semibold text-white">Location</div>
-                  <div className="text-slate-300">{personal.location}</div>
-                </div>
-              </motion.div>
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent mb-6 block opacity-50">
+                  // INQUIRY_05 / PROTOCOL
+              </span>
+              <h2 className="text-4xl md:text-7xl font-black text-primary-text tracking-tightest leading-none uppercase">
+                Start <br />
+                <span className="text-secondary-text opacity-40">Conversation.</span>
+              </h2>
             </div>
-            
-            {/* Social Links */}
-            <motion.div 
-              className="flex justify-center gap-6"
-              variants={staggerContainer}
-            >
-              {[
-                { icon: Github, href: social.github, label: 'GitHub' },
-                { icon: Linkedin, href: social.linkedin, label: 'LinkedIn' }
-              ].map((socialLink) => (
-                <motion.div
-                  key={socialLink.label}
-                  variants={staggerItem}
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full bg-gradient-to-br from-slate-800 to-blue-900 text-white hover:from-blue-600 hover:to-purple-600 shadow-lg transition-all duration-300"
-                    onClick={() => window.open(socialLink.href, '_blank')}
-                    aria-label={socialLink.label}
-                  >
-                    <socialLink.icon className="h-6 w-6" />
-                  </Button>
-                </motion.div>
-              ))}
-            </motion.div>
+            <div className="hidden md:block text-right opacity-20">
+              <p className="text-[9px] font-mono uppercase tracking-widest">Type: Comm_Protocol</p>
+              <p className="text-[9px] font-mono tracking-widest">Status: Ready_For_Inbound</p>
+            </div>
           </motion.div>
+
+          <div className="grid lg:grid-cols-12 gap-px bg-border border border-border">
+            {/* Left Column: Form */}
+            <div className="lg:col-span-8 bg-background p-12 lg:p-14 relative corner-tl">
+              <div className="absolute top-4 right-4 text-[8px] font-mono uppercase opacity-10">Inquiry.Ref / 2025-AX</div>
+              <form onSubmit={handleSubmit} className="space-y-16">
+                <div className="grid md:grid-cols-2 gap-16">
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-secondary-text opacity-50">First_Name</label>
+                    <input
+                      name="first"
+                      value={form.first}
+                      onChange={handleChange}
+                      required
+                      placeholder="Jane"
+                      className="w-full bg-transparent border-b border-border py-6 text-primary-text focus:border-accent transition-colors outline-none font-bold text-lg tracking-tightest uppercase placeholder:opacity-20"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-secondary-text opacity-50">Last_Name</label>
+                    <input
+                      name="last"
+                      value={form.last}
+                      onChange={handleChange}
+                      required
+                      placeholder="Doe"
+                      className="w-full bg-transparent border-b border-border py-6 text-primary-text focus:border-accent transition-colors outline-none font-bold text-lg tracking-tightest uppercase placeholder:opacity-20"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-secondary-text opacity-50">Email_Address</label>
+                  <input
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    type="email"
+                    placeholder="jane@example.com"
+                    className="w-full bg-transparent border-b border-border py-6 text-primary-text focus:border-accent transition-colors outline-none font-bold text-lg tracking-tightest uppercase placeholder:opacity-20"
+                  />
+                </div>
+
+                <div className="space-y-4">
+                  <label className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-secondary-text opacity-50">Message_Payload</label>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                    rows={4}
+                    placeholder="Describe your architectural needs..."
+                    className="w-full bg-transparent border-b border-border py-6 text-primary-text focus:border-accent transition-colors outline-none font-bold text-lg tracking-tightest uppercase placeholder:opacity-20 resize-none"
+                  />
+                </div>
+
+                <div className="pt-8">
+                  <Button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="bg-primary-text text-background hover:bg-accent transition-all duration-500 px-16 py-10 text-[11px] font-black uppercase tracking-[0.4em] rounded-none group h-auto"
+                  >
+                    {status === 'loading' ? (
+                      <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                    ) : (
+                      <Send className="h-4 w-4 mr-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                    )}
+                    {status === 'loading' ? 'Transmitting...' : 'Execute Submission'}
+                  </Button>
+                </div>
+
+                {status === 'success' && (
+                  <motion.div
+                    className="flex items-center gap-4 text-emerald-500 font-mono font-black text-[10px] uppercase tracking-[0.3em]"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <CheckCircle className="h-4 w-4" /> // Transmission_Confirmed
+                  </motion.div>
+                )}
+              </form>
+            </div>
+
+            {/* Right Column: Info */}
+            <div className="lg:col-span-4 bg-background p-12 lg:p-14 relative flex flex-col justify-between corner-br border-l border-border/30">
+              <div className="space-y-16">
+                <div className="space-y-10">
+                  <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                    <Globe className="w-3 h-3" />
+                    Origin / Data
+                  </h3>
+                  <div className="space-y-8">
+                    <div className="group cursor-default">
+                      <p className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-secondary-text opacity-50 mb-4">Email_Endpoint</p>
+                      <p className="text-primary-text font-black tracking-tightest text-xl group-hover:text-accent transition-colors uppercase">{personal.email}</p>
+                    </div>
+                    <div className="group cursor-default">
+                      <p className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-secondary-text opacity-50 mb-4">Global_Coords</p>
+                      <p className="text-primary-text font-black tracking-tightest text-xl group-hover:text-accent transition-colors uppercase">{personal.location}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-10">
+                  <h3 className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                    <MessageSquare className="w-3 h-3" />
+                    Social_Signals
+                  </h3>
+                  <div className="flex flex-col gap-6">
+                    <a href={PORTFOLIO_DATA.social.github} target="_blank" className="text-primary-text font-black tracking-tightest text-xl hover:text-accent transition-colors uppercase">GitHub</a>
+                    <a href={PORTFOLIO_DATA.social.linkedin} target="_blank" className="text-primary-text font-black tracking-tightest text-xl hover:text-accent transition-colors uppercase">LinkedIn</a>
+                    <a href={PORTFOLIO_DATA.social.twitter} target="_blank" className="text-primary-text font-black tracking-tightest text-xl hover:text-accent transition-colors uppercase">Twitter</a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-16 pt-8 border-t border-border/30">
+                <span className="text-6xl font-black text-primary-text opacity-[0.03] select-none">COMM_05</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 };
 
-export default Contact; 
+export default Contact;

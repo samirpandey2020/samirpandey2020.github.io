@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Code, Palette, Zap, Users } from 'lucide-react';
+import { Code, Palette, Zap, Users, ShieldCheck, Cpu } from 'lucide-react';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const About: React.FC = () => {
@@ -10,140 +8,130 @@ const About: React.FC = () => {
     {
       icon: Code,
       title: "Clean Code",
-      description: "Writing maintainable and scalable code"
+      description: "Scalable Logic-01"
     },
     {
       icon: Palette,
       title: "UI/UX Design",
-      description: "Creating beautiful user experiences"
+      description: "Visual Core-02"
     },
     {
       icon: Zap,
       title: "Performance",
-      description: "Optimizing for speed and efficiency"
+      description: "Optimized-03"
     },
     {
       icon: Users,
       title: "Collaboration",
-      description: "Working effectively in teams"
+      description: "Team Ops-04"
     },
     {
-      icon: Users,
-      title: "Integration",
-      description: "Integrating systems and APIs"
+      icon: ShieldCheck,
+      title: "Security",
+      description: "Protection-05"
     }
   ];
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
-          className="max-w-6xl mx-auto"
+    <section id="about" className="section-padding bg-background relative overflow-hidden bg-grid">
+      <div className="container mx-auto px-8 lg:px-12 relative z-10">
+        <motion.div
+          className="max-w-6xl"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
-          <motion.div 
-            className="text-center mb-16"
+          <motion.div
+            className="mb-24 flex justify-between items-end border-b border-border pb-12"
             variants={fadeInUp}
           >
-            <Badge className="px-4 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 mb-4">
-              About Me
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-              A passionate developer who loves{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                building things that matter
+            <div>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent mb-6 block opacity-50">
+                // SELECTION_01 / CORE_IDENTITY
               </span>
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              I'm dedicated to creating innovative solutions that make a difference in people's lives
-            </p>
+              <h2 className="text-4xl md:text-7xl font-black text-primary-text tracking-tightest leading-none uppercase">
+                Purposeful <br />
+                <span className="text-secondary-text opacity-40">Engineering.</span>
+              </h2>
+            </div>
+            <div className="hidden md:block text-right opacity-20">
+              <p className="text-[9px] font-mono uppercase tracking-widest">Type: Resident_Eng</p>
+              <p className="text-[9px] font-mono tracking-widest">Status: Active_Process</p>
+            </div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
-            <motion.div variants={fadeInUp}>
-              <Card className="border-0 shadow-xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                    Who I Am
-                  </h3>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                    I'm a full-stack developer with a passion for creating clean, efficient, and user-friendly applications. 
-                    I enjoy solving complex problems and turning ideas into reality through code.
-                  </p>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                    With a strong foundation in both frontend and backend development, I bring ideas to life with modern technologies and best practices.
-                  </p>
-                </CardContent>
-              </Card>
+          {/* Bento Grid layout */}
+          <div className="grid lg:grid-cols-12 gap-px bg-border border border-border">
+            {/* Large Card */}
+            <motion.div
+              variants={fadeInUp}
+              className="lg:col-span-8 p-12 bg-background relative group hover:bg-surface transition-colors corner-tl"
+            >
+              <div className="absolute top-4 right-4 text-[9px] font-mono uppercase opacity-10">Module.01</div>
+              <h3 className="text-xl font-bold text-primary-text mb-8 uppercase tracking-[0.2em] flex items-center gap-3">
+                <Cpu className="w-4 h-4 text-accent" />
+                Philosophy
+              </h3>
+              <p className="text-xl text-secondary-text leading-relaxed mb-8 max-w-2xl">
+                I'm a full-stack developer with a passion for creating clean, efficient, and user-friendly applications.
+                I enjoy solving complex problems and turning ideas into reality through code.
+              </p>
+              <p className="text-xl text-secondary-text leading-relaxed max-w-2xl">
+                I believe in writing code that's not just functional, but also readable and maintainable.
+                I'm always learning new technologies and best practices to deliver better solutions.
+              </p>
             </motion.div>
 
-            <motion.div variants={fadeInUp}>
-              <Card className="border-0 shadow-xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-                    What I Do
-                  </h3>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                    I specialize in building web applications using modern technologies like React, Django, and Python. 
-                    I focus on writing clean, maintainable code and creating intuitive user experiences.
-                  </p>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                    From concept to deployment, I handle every aspect of the development process with attention to detail and user-centric design.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
+            {/* Small Side Card */}
+            <motion.div
+              variants={fadeInUp}
+              className="lg:col-span-4 p-12 bg-background relative flex flex-col justify-between corner-br border-l border-border/30"
+            >
+              <div className="space-y-10">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-xl font-bold text-primary-text uppercase tracking-[0.2em]">Status</h3>
+                  <span className="text-[8px] font-mono opacity-20">SYSTEM_UP</span>
+                </div>
 
-          <motion.div variants={fadeInUp}>
-            <Card className="border-0 shadow-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
-                  My Approach
-                </h3>
-                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed text-center max-w-4xl mx-auto">
-                  I believe in writing code that's not just functional, but also readable and maintainable. 
-                  I'm always learning new technologies and best practices to deliver better solutions. 
-                  When I'm not coding, you can find me exploring new technologies or contributing to open source projects.
+                <p className="text-secondary-text leading-relaxed text-lg">
+                  Dedicated to creating innovative solutions that make a difference in people's lives through modern technology and design.
                 </p>
-              </CardContent>
-            </Card>
-          </motion.div>
 
-          {/* Highlights Grid */}
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mt-16"
-            variants={staggerContainer}
-          > 
-            {highlights.map((highlight) => (
-              <motion.div
-                key={highlight.title}
-                variants={staggerItem}
-                whileHover={{ y: -5, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <Card className="border-0 shadow-lg bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:shadow-xl transition-shadow">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <highlight.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                      {highlight.title}
-                    </h4>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm">
-                      {highlight.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+                <div className="inline-flex items-center gap-4 px-5 py-3 border border-emerald-500/20 bg-emerald-500/5 rounded-none shadow-[0_0_30px_-5px_rgba(16,185,129,0.2)]">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-emerald-500 mt-0.5">Available for work</span>
+                </div>
+              </div>
+
+              <div className="mt-12 pt-8 border-t border-border/30">
+                <span className="text-6xl font-black text-primary-text opacity-[0.03] select-none">CORE.01</span>
+              </div>
+            </motion.div>
+
+            {/* Bottom Row Highlights */}
+            <div className="lg:col-span-12 grid grid-cols-2 lg:grid-cols-5 gap-px">
+              {highlights.map((highlight, idx) => (
+                <motion.div
+                  key={highlight.title}
+                  variants={staggerItem}
+                  className="p-10 bg-background relative hover:bg-surface transition-colors group"
+                >
+                  <div className="absolute top-2 right-2 text-[7px] font-mono opacity-20">REF.{idx + 10}</div>
+                  <highlight.icon className="w-5 h-5 text-secondary-text group-hover:text-primary-text transition-colors mb-6 group-hover:rotate-12 duration-500" />
+                  <h4 className="text-[10px] font-black text-primary-text uppercase tracking-[0.2em] mb-3">
+                    {highlight.title}
+                  </h4>
+                  <p className="text-[9px] font-mono text-secondary-text leading-relaxed tracking-widest uppercase opacity-40">
+                    {highlight.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

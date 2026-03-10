@@ -82,12 +82,21 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       title: "QuickCCA",
-      description: "A full-stack Web Application for CCA (Cheque Clearing Application) built with Django and React and selenium. Features include user authentication, Cheque Clearing, integration with 3rp party API and Database, and more.",
-      technologies: ["Django", "React", "PostgreSQL", "Selenium", "RPA", "Redis", "RabbitMQ"],
+      description: "Won the Product ICT Award 2025. An innovative solution in banking automation that processes inward check clearing using OCR/ICR technology. Integrated with major banks including Global IME, Nabil, Kumari, and NMB.",
+      technologies: ["Django", "React", "PostgreSQL", "Selenium", "OCR/ICR", "Banking Automation"],
       githubUrl: "https://github.com/samirpandey2020/QuickCCA",
       liveUrl: "https://quickcca.com",
       image: "/images/projects/ecommerce.jpg",
-      category: "Full-Stack"
+      category: "FinTech"
+    },
+    {
+      title: "RAG Lab",
+      description: "A research and implementation lab for Retrieval-Augmented Generation. Features document OCR, vector embeddings, and intelligent retrieval systems.",
+      technologies: ["FastAPI", "React", "PostgreSQL", "Minio", "Qdrant", "RAG", "OCR"],
+      githubUrl: "https://github.com/samirpandey2020/RAG-Lab",
+      liveUrl: "https://rag-lab.com",
+      image: "/images/projects/rag-lab.jpg",
+      category: "AI/ML"
     },
     {
       title: "OCR Service",

@@ -1,152 +1,71 @@
-
-// src/components/layout/Footer.tsx
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Github, Linkedin, Mail, Twitter, Heart, ArrowUp } from 'lucide-react';
-import { SOCIAL_LINKS } from '@/lib/constants';
+import { Heart, Terminal, Globe, Cpu } from 'lucide-react';
+import PORTFOLIO_DATA from '@/data/portfolio';
+
+const { personal } = PORTFOLIO_DATA;
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const socialLinks = [
-    {
-      icon: Github,
-      href: SOCIAL_LINKS.github,
-      label: 'GitHub'
-    },
-    {
-      icon: Linkedin,
-      href: SOCIAL_LINKS.linkedin,
-      label: 'LinkedIn'
-    },
-    {
-      icon: Twitter,
-      href: SOCIAL_LINKS.twitter,
-      label: 'Twitter'
-    },
-    {
-      icon: Mail,
-      href: SOCIAL_LINKS.email,
-      label: 'Email'
-    }
-  ];
-
-  const quickLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#contact', label: 'Contact' }
-  ];
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <footer className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="md:col-span-2">
-            <div className="mb-4">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Samir Pandey
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mt-2 max-w-md">
-                Full-Stack Developer passionate about creating beautiful and functional 
-                digital experiences that make a difference.
-              </p>
+    <footer className="bg-background relative overflow-hidden bg-grid border-t border-border mt-32">
+      <div className="container mx-auto px-8 lg:px-12 py-24 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-16 lg:gap-12 pb-24">
+          <div className="lg:col-span-6 space-y-10">
+            <div className="flex items-center gap-3 text-accent opacity-40">
+              <Cpu className="w-4 h-4" />
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em]">System_Core_v2.0</span>
             </div>
-            
-            {/* Social Links */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <Button
-                  key={social.label}
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => window.open(social.href, '_blank')}
-                  className="rounded-full p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
-                >
-                  <social.icon className="h-5 w-5" />
-                  <span className="sr-only">{social.label}</span>
-                </Button>
-              ))}
+            <h3 className="text-4xl md:text-5xl font-black text-primary-text mb-6 uppercase tracking-tightest leading-none">
+              {personal.name}<span className="text-accent">_</span>
+            </h3>
+            <p className="text-lg text-secondary-text max-w-sm leading-relaxed opacity-60">
+              Software Engineer specialized in high-performance automation, architectural systems, and purposeful digital experiences.
+            </p>
+          </div>
+
+          <div className="lg:col-span-3 space-y-10">
+            <h4 className="text-[10px] font-mono font-black uppercase tracking-[0.4em] text-accent opacity-40">// CONTACT_PROTO</h4>
+            <div className="space-y-6 text-[12px] font-bold uppercase tracking-[0.2em] text-secondary-text">
+              <p className="hover:text-primary-text transition-colors cursor-default select-all">{personal.email}</p>
+              <p className="hover:text-primary-text transition-colors cursor-default">{personal.location}</p>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              Quick Links
-            </h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
-                    className="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              Get In Touch
-            </h4>
-            <div className="space-y-2 text-slate-600 dark:text-slate-400">
-              <p>pandeysamir040@example.com</p>
-              <p>Kathmandu</p>
+          <div className="lg:col-span-3 space-y-10">
+            <h4 className="text-[10px] font-mono font-black uppercase tracking-[0.4em] text-accent opacity-40">// SOCIAL_SIGNAL</h4>
+            <div className="space-y-6 text-[12px] font-bold uppercase tracking-[0.2em] text-secondary-text">
+              <a href={PORTFOLIO_DATA.social.github} target="_blank" className="block hover:text-primary-text transition-colors">GitHub_Archive</a>
+              <a href={PORTFOLIO_DATA.social.linkedin} target="_blank" className="block hover:text-primary-text transition-colors">LinkedIn_Profile</a>
+              <a href={PORTFOLIO_DATA.social.twitter} target="_blank" className="block hover:text-primary-text transition-colors">Twitter_Feed</a>
             </div>
-            
-            <Button
-              onClick={() => scrollToSection('#contact')}
-              className="mt-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full px-6"
-            >
-              Let's Work Together
-            </Button>
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center text-slate-600 dark:text-slate-400 mb-4 md:mb-0">
-              <span>&copy; {currentYear} Samir Pandey, Made with</span>
-              <Heart className="h-4 w-4 mx-1 text-red-500 fill-current" />
-              <span>and lots of coffee and cursor</span>
-            </div>
-            
-            {/* Back to Top */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={scrollToTop}
-              className="rounded-full p-2 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors group"
-            >
-              <ArrowUp className="h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-              <span className="ml-1 text-sm">Back to Top</span>
-            </Button>
+        <div className="pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex items-center text-[10px] font-mono uppercase tracking-[0.3em] text-secondary-text/30">
+            <span>&copy; {currentYear} [SAMIR_PANDEY]</span>
+            <span className="mx-6 opacity-20">|</span>
+            <span className="flex items-center gap-2">
+              <Terminal className="w-3 h-3 opacity-40" />
+              DEPLOYED_VIA_CLOUDFLARE
+            </span>
+          </div>
+
+          <div className="flex items-center gap-4 text-[10px] font-mono uppercase tracking-[0.4em] text-secondary-text/20 font-black">
+            <span>PROTOCOL:05.11.2025</span>
+            <Heart className="w-3 h-3 opacity-20 fill-current" />
+            <span>AUTH:SECURE</span>
           </div>
         </div>
+      </div>
+
+      {/* Background Decal */}
+      <div className="absolute -bottom-10 -right-20 pointer-events-none select-none opacity-[0.02] text-[15vw] font-black leading-none text-primary-text uppercase">
+        TERMINAL_01
       </div>
     </footer>
   );
 };
 
 export default Footer;
-
-// ===================================

@@ -1,35 +1,34 @@
-// src/components/layout/Header.tsx
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, Github, Linkedin, Terminal } from 'lucide-react';
 import { downloadResume } from '@/lib/utils';
+import PORTFOLIO_DATA from '@/data/portfolio';
+
+const { personal, social } = PORTFOLIO_DATA;
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Navigation links
   const navLinks = [
-    { href: '#hero', label: 'Home' },
-    { href: '#about', label: 'About' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#contact', label: 'Contact' }
+    { href: '#hero', label: 'Home', ref: '00' },
+    { href: '#about', label: 'About', ref: '01' },
+    { href: '#skills', label: 'Skills', ref: '02' },
+    { href: '#projects', label: 'Projects', ref: '03' },
+    { href: '#experience', label: 'Experience', ref: '04' },
+    { href: '#contact', label: 'Contact', ref: '05' }
   ];
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId.replace('#', ''));
+    const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -37,109 +36,83 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header 
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-slate-900/90 backdrop-blur-md shadow-lg border-b border-slate-700/20' 
-          : 'bg-transparent'
-      }`}
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 lg:hidden ${isScrolled || isMobileMenuOpen
+        ? 'bg-background border-b border-border'
+        : 'bg-transparent'
+        }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => scrollToSection('#hero')}
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
-            >
-              Portfolio
-            </button>
+      <div className="container mx-auto px-8 h-20 flex items-center justify-between">
+        <button
+          onClick={() => scrollToSection('#hero')}
+          className="text-xl font-black tracking-tighter text-primary-text uppercase"
+        >
+          {personal.name.split(' ')[0]}<span className="text-secondary-text">.</span>
+        </button>
+
+        <div className="flex items-center gap-4">
+          {!isMobileMenuOpen && (
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 border border-border bg-surface/50">
+              <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse"></div>
+              <span className="text-[8px] font-mono uppercase tracking-widest text-secondary-text">Sys_Ready</span>
+            </div>
+          )}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-primary-text p-2 -mr-2"
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 top-20 bg-background bg-grid z-40 p-10 flex flex-col justify-between animate-in fade-in duration-500 overflow-hidden">
+          {/* Decorative Decal */}
+          <div className="absolute top-10 right-10 opacity-10 font-mono text-[8px] tracking-[0.4em] uppercase transform rotate-90 origin-top-right">
+            Protocol / Mobile_AX
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
+          <nav className="space-y-4 mt-12 relative z-10">
+            {navLinks.map((link, idx) => (
               <button
                 key={link.href}
                 onClick={() => scrollToSection(link.href)}
-                className="text-slate-300 hover:text-blue-400 font-medium transition-colors duration-200 relative group"
+                className="group flex items-end gap-6 w-full text-left"
               >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                <span className="text-[10px] font-mono text-accent opacity-30 mb-2">{link.ref}</span>
+                <span className="text-5xl font-black text-primary-text hover:text-accent transition-all duration-300 tracking-tightest uppercase leading-none">
+                  {link.label}
+                </span>
+                <span className="h-px flex-1 bg-border/20 mb-2 group-hover:bg-accent transition-colors"></span>
               </button>
             ))}
           </nav>
 
-          {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
-            {/* Resume Download */}
+          <div className="space-y-12 relative z-10">
+            <div className="flex items-center justify-between border-t border-border pt-12">
+              <div className="flex gap-8">
+                <a href={social.github} target="_blank" className="text-secondary-text hover:text-primary-text transition-colors"><Github className="w-5 h-5" /></a>
+                <a href={social.linkedin} target="_blank" className="text-secondary-text hover:text-primary-text transition-colors"><Linkedin className="w-5 h-5" /></a>
+              </div>
+              <div className="flex items-center gap-3">
+                <Terminal className="w-3 h-3 text-accent opacity-40" />
+                <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-secondary-text opacity-40">Build.2025</span>
+              </div>
+            </div>
+
             <Button
               variant="outline"
-              size="sm"
+              className="w-full py-9 border-border text-primary-text text-[11px] font-black uppercase tracking-[0.4em] rounded-none bg-surface/30 hover:bg-accent hover:text-background transition-all duration-500 group"
               onClick={downloadResume}
-              className="hidden sm:inline-flex rounded-full px-4 border-slate-600 text-slate-300 hover:bg-slate-800"
             >
-              <Download className="h-4 w-4 mr-2" />
-              Resume
-            </Button>
-
-            {/* CTA Button */}
-            <Button
-              onClick={() => scrollToSection('#contact')}
-              className="hidden md:inline-flex bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
-            >
-              Hire Me
-            </Button>
-
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden rounded-full p-2 text-slate-300 hover:bg-slate-800"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              <Download className="w-4 h-4 mr-3 group-hover:-translate-y-1 transition-transform" />
+              Access Cloud Resume
             </Button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900 rounded-lg mt-2 shadow-lg border border-slate-700">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="block w-full text-left px-3 py-2 text-slate-300 hover:text-blue-400 hover:bg-slate-800 rounded-md font-medium transition-colors duration-200"
-                >
-                  {link.label}
-                </button>
-              ))}
-              <div className="pt-2 border-t border-slate-700 space-y-2">
-                <Button
-                  variant="outline"
-                  onClick={downloadResume}
-                  className="w-full rounded-md border-slate-600 text-slate-300 hover:bg-slate-800"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Resume
-                </Button>
-                <Button
-                  onClick={() => scrollToSection('#contact')}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-2 rounded-md transition-all duration-300"
-                >
-                  Hire Me
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </header>
   );
 };

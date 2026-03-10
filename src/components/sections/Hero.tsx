@@ -2,202 +2,120 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowDown, Download, Github, Linkedin, Mail, Sparkles, Code, Zap } from 'lucide-react';
-import { fadeInUp, fadeInRight, fastStaggerContainer, fastStaggerItem } from '@/lib/animations';
+import { ArrowDown, Download, Terminal } from 'lucide-react';
+import { fadeInUp, fastStaggerContainer, fastStaggerItem } from '@/lib/animations';
 import { downloadResume } from '@/lib/utils';
 import PORTFOLIO_DATA from '@/data/portfolio';
 
-const { personal, social } = PORTFOLIO_DATA;
+const { personal } = PORTFOLIO_DATA;
 
 const Hero: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+    const element = document.querySelector(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  const skills = [
+    'Django', 'React', 'FastAPI', 'TypeScript', 'Python', 'AWS',
+    'PostgreSQL', 'Automation', 'Docker', 'Redis'
+  ];
+
   return (
-    <section id="hero" className="py-20 relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Animated Background Elements */}
-      <motion.div 
-        className="absolute top-20 left-10 w-16 h-16 bg-blue-800 rounded-full opacity-30"
-        animate={{ y: [0, -8, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div 
-        className="absolute bottom-20 right-10 w-24 h-24 bg-purple-800 rounded-full opacity-30"
-        animate={{ y: [0, -12, 0], scale: [1, 1.05, 1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      />
-      <motion.div 
-        className="absolute top-1/2 left-1/4 w-8 h-8 bg-cyan-800 rounded-full opacity-40"
-        animate={{ y: [0, -6, 0], x: [0, 10, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      />
+    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden bg-background bg-grid pt-32 pb-20 lg:pt-10 lg:pb-0">
+      {/* Decorative Technical Metadata Overlay */}
+      <div className="absolute top-10 right-10 hidden lg:block text-right opacity-20 select-none">
+        <p className="text-[9px] font-mono uppercase tracking-[0.3em] mb-1">Build / 2025.03.v2</p>
+        <p className="text-[8px] font-mono tracking-widest text-secondary-text">
+          STACK: RE-TS-DJ-PG-RD-RB
+        </p>
+      </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Side - Introduction Content */}
-            <motion.div 
-              className="text-left"
-              variants={fastStaggerContainer}
-              initial="initial"
-              animate="animate"
+      <div className="container mx-auto px-8 lg:px-12 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+          {/* Left Side - Content */}
+          <motion.div
+            className="lg:col-span-8 xl:col-span-12"
+            variants={fastStaggerContainer}
+            initial="initial"
+            animate="animate"
+          >
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-3 px-4 py-2 border border-border bg-surface mb-10 relative corner-tl">
+              <Terminal className="w-3 h-3 text-emerald-500" />
+              <span className="text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-secondary-text mt-0.5">
+                {personal.status}
+              </span>
+            </motion.div>
+
+            <motion.h1
+              className="text-6xl md:text-8xl xl:text-[10rem] font-black text-primary-text mb-10 tracking-tightest leading-[0.8] uppercase flex flex-col"
+              variants={fadeInUp}
             >
-              {/* Main Heading */}
-              <motion.h1 
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 md:mb-6 leading-tight"
-                variants={fadeInUp}
-              >
-                Hi, I'm{' '}
-                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  {personal.name}
-                </span>
-              </motion.h1>
+              <span>ENGINEERING</span>
+              <span className="flex items-center gap-4">
+                DIGITAL
+                <span className="text-accent">_</span>
+              </span>
+              <span className="text-secondary-text opacity-40">SYSTEMS</span>
+            </motion.h1>
 
-              {/* Subtitle */}
-              <motion.p 
-                className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 md:mb-8 leading-relaxed"
+            <div className="grid lg:grid-cols-12 gap-8 items-start mb-16">
+              <motion.p
+                className="lg:col-span-5 text-lg md:text-xl text-secondary-text leading-relaxed tracking-tight"
                 variants={fadeInUp}
               >
                 {personal.bio}
               </motion.p>
 
-              {/* Skills Pills */}
-              <motion.div 
-                className="flex flex-wrap gap-2 mb-6 md:mb-8"
+              <motion.div
+                className="lg:col-span-6 flex flex-wrap gap-2 pt-2"
                 variants={fastStaggerContainer}
               >
-                {[
-                  { name: 'Django', icon: Code, color: 'blue' },
-                  { name: 'React', icon: Zap, color: 'cyan' },
-                  { name: 'FastAPI', icon: Code, color: 'blue' },
-                  { name: 'TypeScript', icon: Zap, color: 'cyan' },
-                  { name: 'Python', icon: Code, color: 'blue' },
-                  { name: 'AWS', icon: Zap, color: 'cyan' },
-                  { name: 'PostgreSQL', icon: Code, color: 'blue' },
-                  { name: 'Automation', icon: Zap, color: 'cyan' },
-                  { name: 'Selenium', icon: Code, color: 'blue' },
-                  { name: 'Ollama', icon: Zap, color: 'cyan' },
-                  { name: 'OCR', icon: Code, color: 'blue' },
-                  { name: 'Docker', icon: Zap, color: 'cyan' },
-                  { name: 'Redis', icon: Code, color: 'blue' }
-                ].map((skill) => (
-                  <motion.div
-                    key={skill.name}
-                    variants={fastStaggerItem}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <Badge 
-                      variant="outline" 
-                      className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs bg-slate-800/90 backdrop-blur-sm border-slate-700 shadow-sm flex items-center gap-1 hover:bg-slate-700/50 transition-colors"
+                {skills.map((skill) => (
+                  <motion.div key={skill} variants={fastStaggerItem}>
+                    <Badge
+                      variant="outline"
+                      className="px-4 py-1.5 text-[9px] font-mono uppercase tracking-[0.2em] border-border text-secondary-text/60 hover:text-primary-text hover:border-accent transition-all duration-300 rounded-none bg-surface/30"
                     >
-                      <skill.icon className={`w-3 h-3 text-${skill.color}-400`} />
-                      {skill.name}
+                      {skill}
                     </Badge>
                   </motion.div>
                 ))}
               </motion.div>
+            </div>
 
-             
-              {/* CTA Buttons */}
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 md:mb-8"
-                variants={fadeInUp}
-              >
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold shadow-lg w-full sm:w-auto"
-                    onClick={() => scrollToSection('projects')}
-                  >
-                    View My Work
-                    <ArrowDown className="ml-2 h-4 w-4" />
-                  </Button>
-                </motion.div>
-                
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button 
-                    variant="outline" 
-                    size="lg"
-                    className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base font-semibold border-2 border-slate-600 hover:bg-slate-800 shadow-lg text-slate-300 w-full sm:w-auto"
-                    onClick={downloadResume}
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Resume
-                  </Button>
-                </motion.div>
-              </motion.div>
-
-              {/* Social Links */}
-              <motion.div 
-                className="flex gap-3 sm:gap-4"
-                variants={fadeInUp}
-              >
-                {[
-                  { icon: Github, href: social.github, label: 'GitHub' },
-                  { icon: Linkedin, href: social.linkedin, label: 'LinkedIn' },
-                  { icon: Mail, href: social.email, label: 'Email' }
-                ].map((social) => (
-                  <motion.div
-                    key={social.label}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                  >
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="rounded-full p-2.5 sm:p-3 bg-slate-800/90 backdrop-blur-sm border border-slate-700 shadow-lg hover:bg-slate-700 text-slate-300"
-                      onClick={() => window.open(social.href, '_blank')}
-                      aria-label={social.label}
-                    >
-                      <social.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                    </Button>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Right Side - Circular Crop Image */}
-            <motion.div 
-              className="flex justify-center lg:justify-end mt-8 lg:mt-0"
-              variants={fadeInRight}
-              initial="initial"
-              animate="animate"
+            <motion.div
+              className="flex flex-col sm:flex-row gap-px bg-border border border-border"
+              variants={fadeInUp}
             >
-
-              <div className='flex flex-col items-center'>
-
-              <div className="flex items-center justify-center w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 xl:w-[26rem] xl:h-[26rem]">
-                <img
-                  src={personal.profileImage}
-                  alt="Samir Pandey - Full Stack Developer"
-                  className="w-full h-full rounded-full object-cover shadow-2xl border-4 border-white"
-                  loading="lazy"
-                  />
-              </div>
-              <div className='flex flex-col items-center mt-10  '>
-                {/* Status Badge */}
-                <motion.div 
-                className="mb-6 md:mb-8"
-                variants={fadeInUp}
+              <Button
+                size="lg"
+                className="bg-primary-text text-background hover:bg-accent transition-all duration-500 px-12 py-9 text-[11px] font-black uppercase tracking-[0.3em] rounded-none group flex-1"
+                onClick={() => scrollToSection('#projects')}
               >
-                <Badge className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-emerald-500 to-green-500 text-white border border-emerald-700 shadow-sm text-sm font-medium">
-                  <Sparkles className="w-3 h-3 mr-2" />
-                  {personal.status}
-                </Badge>
-              </motion.div>
+                Launch Projects
+                <ArrowDown className="ml-3 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+              </Button>
 
-              </div>
-                  </div>
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-surface border-none text-primary-text hover:bg-background transition-all duration-500 px-12 py-9 text-[11px] font-black uppercase tracking-[0.3em] rounded-none group flex-1"
+                onClick={downloadResume}
+              >
+                <Download className="mr-3 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
+                Access Resume
+              </Button>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
+      </div>
+
+      {/* Background Decal */}
+      <div className="absolute -bottom-20 -left-10 pointer-events-none select-none opacity-[0.02] text-[20vw] font-black leading-none text-primary-text whitespace-nowrap uppercase">
+        01.BASE
       </div>
     </section>
   );
