@@ -72,6 +72,10 @@ html {
   }
 }
 
+@utility tracking-tightest {
+  letter-spacing: -0.05em;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
