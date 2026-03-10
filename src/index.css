@@ -73,7 +73,7 @@ html {
 }
 
 @utility tracking-tightest {
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
 }
 
 @layer utilities {

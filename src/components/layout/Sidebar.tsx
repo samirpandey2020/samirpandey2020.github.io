@@ -52,32 +52,32 @@ const Sidebar: React.FC = () => {
     };
 
     const socialLinks = [
-        { icon: Github, href: social.github, label: 'GitHub' },
-        { icon: Linkedin, href: social.linkedin, label: 'LinkedIn' },
-        { icon: Twitter, href: social.twitter, label: 'Twitter' },
-        { icon: Mail, href: `mailto:${personal.email}`, label: 'Email' }
+        { icon: Github, href: social.github, label: 'GitHub Account' },
+        { icon: Linkedin, href: social.linkedin, label: 'LinkedIn Profile' },
+        { icon: Twitter, href: social.twitter, label: 'Twitter Feed' },
+        { icon: Mail, href: `mailto:${personal.email}`, label: 'Send Email' }
     ];
 
     return (
         <aside className="fixed left-0 top-0 h-screen w-64 border-r border-border bg-background hidden lg:flex flex-col z-50">
             {/* Logo/Identity Section */}
             <div className="p-10 pb-10 border-b border-border/30 relative">
-                <div className="absolute top-0 right-0 p-2 opacity-20 transform rotate-90 origin-top-right">
-                    <span className="text-[8px] font-mono uppercase tracking-[0.3em]">System.02</span>
+                <div className="absolute top-0 right-0 p-2 opacity-30 transform rotate-90 origin-top-right select-none">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.3em]">System.v2</span>
                 </div>
 
                 <motion.a
                     href="#hero"
                     onClick={(e) => scrollToSection(e, '#hero')}
-                    className="text-2xl font-black tracking-tighter text-primary-text block mb-1 group"
+                    className="text-2xl font-black tracking-tight text-primary-text block mb-1 group"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                 >
                     {personal.name.split(' ')[0]}
                     <span className="text-accent transition-transform group-hover:translate-x-1 inline-block">.</span>
                 </motion.a>
-                <p className="text-[10px] text-secondary-text font-bold uppercase tracking-[0.2em] leading-relaxed opacity-50 font-mono">
-                    Full-Stack Engineer
+                <p className="text-[11px] text-secondary-text font-bold uppercase tracking-[0.2em] leading-relaxed opacity-60 font-mono">
+                    System Engineer
                 </p>
             </div>
 
@@ -94,10 +94,11 @@ const Sidebar: React.FC = () => {
                             <a
                                 href={link.href}
                                 onClick={(e) => scrollToSection(e, link.href)}
-                                className={`group flex items-center py-1 text-[11px] font-bold uppercase tracking-[0.25em] transition-all duration-500 ${activeSection === link.id
+                                className={`group flex items-center py-1 text-[12px] font-bold uppercase tracking-[0.2em] transition-all duration-500 ${activeSection === link.id
                                         ? 'text-primary-text'
                                         : 'text-secondary-text hover:text-primary-text'
                                     }`}
+                                aria-current={activeSection === link.id ? 'page' : undefined}
                             >
                                 <span className={`h-px bg-accent transition-all duration-700 mr-0 ${activeSection === link.id ? 'w-10 mr-4' : 'w-0 group-hover:w-4 group-hover:mr-3'
                                     }`}></span>
@@ -111,16 +112,16 @@ const Sidebar: React.FC = () => {
             {/* Bottom Section with Technical Metadata */}
             <div className="p-10 border-t border-border/30 space-y-10">
                 {/* Coordinates & Location */}
-                <div className="space-y-2 opacity-40 hover:opacity-100 transition-opacity">
-                    <p className="text-[8px] font-mono uppercase tracking-[0.3em]">Origin / Location</p>
-                    <p className="text-[9px] font-mono tracking-widest text-secondary-text">
+                <div className="space-y-3 opacity-60 hover:opacity-100 transition-opacity">
+                    <p className="text-[10px] font-mono uppercase tracking-[0.3em] font-black">Origin / Loc</p>
+                    <p className="text-[11px] font-mono tracking-widest text-secondary-text leading-relaxed">
                         27.712° N, 85.312° E <br />
-                        KTM, NEPAL
+                        Kathmandu, Nepal
                     </p>
                 </div>
 
                 {/* Socials & Status */}
-                <div className="space-y-6">
+                <div className="space-y-8">
                     <div className="flex items-center gap-6">
                         {socialLinks.slice(0, 3).map((link, idx) => (
                             <motion.a
@@ -129,11 +130,12 @@ const Sidebar: React.FC = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-secondary-text hover:text-primary-text transition-all duration-300"
+                                aria-label={link.label}
+                                title={link.label}
                                 variants={fadeInUp}
                                 initial="initial"
                                 animate="animate"
                                 transition={{ delay: 0.5 + idx * 0.1 }}
-                                title={link.label}
                             >
                                 <link.icon className="w-4 h-4" />
                             </motion.a>
@@ -145,7 +147,7 @@ const Sidebar: React.FC = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60"></span>
                             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
                         </div>
-                        <span className="text-[8px] font-mono uppercase tracking-[0.2em] text-secondary-text opacity-40">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary-text opacity-60">
                             Available-03.2025
                         </span>
                     </div>

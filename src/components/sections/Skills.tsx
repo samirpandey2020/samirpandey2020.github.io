@@ -1,91 +1,101 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
+import { Code2, Database, Layout, Shield, Terminal, Zap } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
+import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const { skills } = PORTFOLIO_DATA;
 
+const iconMap = {
+  'Frontend Development': Layout,
+  'Backend Development': Database,
+  'DevOps & Cloud': Terminal,
+  'Database & Cloud': Database,
+  'DevOps & Tools': Shield,
+  'Security': Shield,
+  'Performance': Zap,
+  'Core Engineering': Code2
+};
+
 const Skills: React.FC = () => {
   return (
-    <section id="skills" className="section-padding bg-background relative overflow-hidden bg-grid">
+    <section id="skills" className="bg-background relative section-padding overflow-hidden border-t border-border/50 bg-grid">
       <div className="container mx-auto px-8 lg:px-12 relative z-10">
         <motion.div
-          className="max-w-6xl"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true }}
+          className="space-y-20"
         >
-          <motion.div
-            className="mb-24 flex justify-between items-end border-b border-border pb-12"
-            variants={fadeInUp}
-          >
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent mb-6 block opacity-50">
-                                // CAPABILITIES_02 / TECH_STACK
-              </span>
-              <h2 className="text-4xl md:text-7xl font-black text-primary-text tracking-tightest leading-none uppercase">
-                Technical <br />
-                <span className="text-secondary-text opacity-40">Core.</span>
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border/40 pb-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] font-mono text-accent font-black tracking-[0.4em]">REF_02</span>
+                <div className="h-px w-8 bg-accent/30"></div>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
+                Technical_Skills
               </h2>
             </div>
-            <div className="hidden md:block text-right opacity-20">
-              <p className="text-[9px] font-mono uppercase tracking-widest">Stack: Full-Scale</p>
-              <p className="text-[9px] font-mono tracking-widest">Build: Production_Ready</p>
-            </div>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-px bg-border border border-border">
-            {skills.categories.map((category, idx) => (
-              <motion.div
-                key={category.title}
-                variants={staggerItem}
-                className="bg-background p-12 relative group hover:bg-surface transition-all duration-500"
-              >
-                <div className="absolute top-4 right-4 text-[8px] font-mono uppercase opacity-10">Module.Ref / 0{idx + 1}</div>
-
-                <h3 className="text-xs font-black text-primary-text uppercase tracking-[0.3em] mb-10 flex items-center gap-4">
-                  <span className="w-10 h-px bg-accent/30 group-hover:w-16 transition-all duration-700"></span>
-                  {category.title}
-                </h3>
-
-                <div className="flex flex-wrap gap-4">
-                  {category.skills.map((skill) => (
-                    <Badge
-                      key={skill.name}
-                      variant="outline"
-                      className="px-5 py-2.5 text-[10px] font-mono font-bold uppercase tracking-[0.2em] border-border text-secondary-text rounded-none bg-surface/30 hover:text-primary-text hover:border-accent transition-all duration-500 relative group/skill"
-                    >
-                      <span className="absolute -top-1 -left-1 w-1 h-1 bg-accent/0 group-hover/skill:bg-accent transition-colors"></span>
-                      {skill.name}
-                    </Badge>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+            <p className="text-[13px] md:text-sm font-mono text-secondary-text uppercase tracking-[0.2em] opacity-60">
+              Engineering Stack.2025 // Core Capabilities
+            </p>
           </div>
 
-          {/* Technical Metadata Footer */}
-          <motion.div
-            variants={fadeInUp}
-            className="mt-16 flex flex-wrap gap-x-12 gap-y-6 opacity-30 px-2"
-          >
-            <div className="space-y-2">
-              <p className="text-[8px] font-mono uppercase tracking-widest mb-2">Process / Dev_Ops</p>
-              <div className="flex flex-wrap gap-3">
-                {["CI/CD", "DOCKER", "AWS", "AUTOMATION"].map(t => (
-                  <span key={t} className="text-[8px] font-mono border border-white/20 px-2 py-0.5">{t}</span>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-[8px] font-mono uppercase tracking-widest mb-2">Eng / Metrics</p>
-              <div className="flex flex-wrap gap-3">
-                {["99.9%_UP", "RE-SCALABLE", "INTENTIONAL"].map(t => (
-                  <span key={t} className="text-[8px] font-mono border border-white/20 px-2 py-0.5">{t}</span>
-                ))}
-              </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {skills.categories.map((skillGroup, idx) => {
+              const Icon = iconMap[skillGroup.title as keyof typeof iconMap] || Code2;
+              return (
+                <motion.div
+                  key={skillGroup.title}
+                  variants={fadeInUp}
+                  className="p-10 bg-surface border border-border hover:border-accent/30 transition-all duration-500 group relative"
+                >
+                  {/* Technical Box Markers */}
+                  <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[10px] uppercase tracking-[0.2em]">
+                    SKILL_MODULE_{idx.toString().padStart(2, '0')}
+                  </div>
+
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="p-3 bg-background border border-border group-hover:border-accent/40 transition-colors">
+                      <Icon className="w-6 h-6 text-accent opacity-80 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-xl font-black text-primary-text uppercase tracking-widest">{skillGroup.title}</h3>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.skills.map((skill) => (
+                      <span
+                        key={skill.name}
+                        className="px-4 py-2 bg-background border border-border text-[11px] font-mono font-bold uppercase tracking-widest text-secondary-text hover:text-accent hover:border-accent transition-all duration-300 cursor-default"
+                      >
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Decorative Progress Dots - Representation of Mastery */}
+                  <div className="mt-10 flex gap-1 items-center opacity-20">
+                    {[...Array(12)].map((_, i) => (
+                      <div key={i} className={`h-1 w-1 rounded-full ${i < 7 ? 'bg-accent' : 'bg-border'}`}></div>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Additional Skills Tag Cloud */}
+          <motion.div variants={fadeInUp} className="pt-10">
+            <h4 className="text-[11px] font-mono uppercase tracking-[0.4em] text-accent/40 font-black mb-6">Additional_Capabilities</h4>
+            <div className="flex flex-wrap gap-3">
+              {skills.additionalSkills.map(skill => (
+                <span key={skill} className="text-[12px] font-bold uppercase tracking-wider text-secondary-text/60 border-b border-border/40 pb-1 hover:text-primary-text hover:border-accent transition-all cursor-default">
+                  {skill}
+                </span>
+              ))}
             </div>
           </motion.div>
         </motion.div>

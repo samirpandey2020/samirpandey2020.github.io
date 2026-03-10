@@ -1,106 +1,98 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
-import { Building2, Calendar, MapPin, Briefcase } from 'lucide-react';
-import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
+import { Briefcase, Calendar, MapPin, ExternalLink, ArrowUpRight } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
+import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const { experience } = PORTFOLIO_DATA;
 
 const Experience: React.FC = () => {
   return (
-    <section id="experience" className="section-padding bg-background relative overflow-hidden bg-grid">
+    <section id="experience" className="bg-background relative section-padding overflow-hidden border-t border-border/50 bg-grid">
       <div className="container mx-auto px-8 lg:px-12 relative z-10">
         <motion.div
-          className="max-w-6xl"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true }}
+          className="space-y-20"
         >
-          <motion.div
-            className="mb-24 flex justify-between items-end border-b border-border pb-12"
-            variants={fadeInUp}
-          >
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent mb-6 block opacity-50">
-                                // TIMELINE_04 / PROGRESSION
-              </span>
-              <h2 className="text-4xl md:text-7xl font-black text-primary-text tracking-tightest leading-none uppercase">
-                Professional <br />
-                <span className="text-secondary-text opacity-40">System.</span>
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border/40 pb-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] font-mono text-accent font-black tracking-[0.4em]">REF_04</span>
+                <div className="h-px w-8 bg-accent/30"></div>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
+                Work_History
               </h2>
             </div>
-            <div className="hidden md:block text-right opacity-20">
-              <p className="text-[9px] font-mono uppercase tracking-widest">Type: Industrial_Exp</p>
-              <p className="text-[9px] font-mono tracking-widest">Build: Production_Ready</p>
-            </div>
-          </motion.div>
+            <p className="text-lg text-secondary-text max-w-md leading-relaxed font-medium">
+              Professional evolution across full-stack engineering, system automation, and digital leadership.
+            </p>
+          </div>
 
-          <div className="space-y-px bg-border border border-border">
+          <div className="space-y-6">
             {experience.map((exp, idx) => (
               <motion.div
-                key={idx}
-                variants={staggerItem}
-                className="bg-background flex flex-col md:grid md:grid-cols-12 gap-8 md:gap-12 p-12 lg:p-14 relative group hover:bg-surface transition-all duration-700"
+                key={`${exp.company}-${exp.title}`}
+                variants={fadeInUp}
+                className="group p-10 bg-surface border border-border hover:border-accent/40 transition-all duration-500 relative overflow-hidden"
               >
-                <div className="absolute top-4 right-4 text-[8px] font-mono uppercase opacity-10">Role.Ref / 0{experience.length - idx}</div>
-
-                <div className="md:col-span-3 space-y-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 bg-accent rounded-none"></div>
-                    <span className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-primary-text">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <div className="space-y-2 opacity-50">
-                    <div className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest text-secondary-text">
-                      <Building2 className="w-3 h-3" />
-                      {exp.company}
-                    </div>
-                    <div className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest text-secondary-text">
-                      <MapPin className="w-3 h-3" />
-                      {exp.location}
-                    </div>
-                  </div>
+                {/* Internal Box Markers */}
+                <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[11px] uppercase tracking-[0.3em]">
+                  EXP_MODULE_{String(idx + 1).padStart(2, '0')}
                 </div>
 
-                <div className="md:col-span-9 space-y-10">
-                  <h3 className="text-3xl md:text-4xl font-black text-primary-text uppercase tracking-tightest leading-none">
-                    {exp.title}
-                  </h3>
+                <div className="grid lg:grid-cols-12 gap-10">
+                  {/* Timeline & Company Info */}
+                  <div className="lg:col-span-4 space-y-6">
+                    <div className="flex items-center gap-4 text-accent">
+                      <Calendar className="w-5 h-5 opacity-60" />
+                      <span className="text-[12px] font-mono font-black uppercase tracking-[0.2em]">{exp.period}</span>
+                    </div>
 
-                  <div className="grid md:grid-cols-2 gap-12">
-                    <div className="space-y-6">
-                      <p className="text-lg text-secondary-text leading-relaxed opacity-80">
-                        {exp.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.technologies.slice(0, 6).map((tech) => (
-                          <span key={tech} className="text-[8px] font-mono border border-border px-2 py-0.5 text-secondary-text uppercase tracking-[0.2em] bg-surface/30">
-                            {tech}
-                          </span>
-                        ))}
+                    <div>
+                      <h3 className="text-2xl font-black text-primary-text uppercase tracking-tightest mb-2">{exp.company}</h3>
+                      <div className="flex items-center gap-4 text-secondary-text opacity-60">
+                        <div className="h-px w-4 bg-border"></div>
+                        <p className="text-[11px] font-mono uppercase tracking-[0.2em]">{exp.location}</p>
                       </div>
                     </div>
 
-                    <div className="space-y-6">
-                      <h4 className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent">// Achievements</h4>
-                      <ul className="space-y-4">
-                        {exp.achievements.map((achievement, i) => (
-                          <li key={i} className="flex items-start gap-4 group/ach">
-                            <div className="w-1.5 h-px bg-accent/30 mt-2.5 group-hover/ach:w-4 transition-all duration-300"></div>
-                            <span className="text-sm text-secondary-text leading-relaxed group-hover/ach:text-primary-text transition-colors">
-                              {achievement}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="inline-flex items-center gap-4 px-4 py-2 bg-background border border-border text-[11px] font-mono font-bold uppercase tracking-widest text-accent/80">
+                      <Briefcase className="w-4 h-4" />
+                      {exp.title}
+                    </div>
+                  </div>
+
+                  {/* Role Description */}
+                  <div className="lg:col-span-8 space-y-8">
+                    <p className="text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
+                      {exp.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-3">
+                      {exp.technologies.slice(0, 6).map(tech => (
+                        <span key={tech} className="px-3 py-1 border border-border/40 text-[10px] font-mono uppercase tracking-widest text-secondary-text/60">
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Timeline Technical Visualization */}
+          <div className="pt-10 flex items-center justify-center opacity-10 grayscale">
+            <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-[0.4em] font-black">
+              <ArrowUpRight className="w-4 h-4" />
+              <span>Career_Protocol_Active // Total_Exp:05_Years</span>
+              <div className="h-px w-40 bg-primary-text"></div>
+            </div>
           </div>
         </motion.div>
       </div>

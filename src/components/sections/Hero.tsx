@@ -1,121 +1,104 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { ArrowDown, Download, Terminal } from 'lucide-react';
-import { fadeInUp, fastStaggerContainer, fastStaggerItem } from '@/lib/animations';
-import { downloadResume } from '@/lib/utils';
+import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
+import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
-const { personal } = PORTFOLIO_DATA;
+const { personal, social } = PORTFOLIO_DATA;
 
 const Hero: React.FC = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const skills = [
-    'Django', 'React', 'FastAPI', 'TypeScript', 'Python', 'AWS',
-    'PostgreSQL', 'Automation', 'Docker', 'Redis'
-  ];
-
   return (
-    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden bg-background bg-grid pt-32 pb-20 lg:pt-10 lg:pb-0">
-      {/* Decorative Technical Metadata Overlay */}
-      <div className="absolute top-10 right-10 hidden lg:block text-right opacity-20 select-none">
-        <p className="text-[9px] font-mono uppercase tracking-[0.3em] mb-1">Build / 2025.03.v2</p>
-        <p className="text-[8px] font-mono tracking-widest text-secondary-text">
-          STACK: RE-TS-DJ-PG-RD-RB
-        </p>
-      </div>
+    <section id="hero" className="min-h-[90vh] flex items-center relative overflow-hidden bg-background pt-32 pb-20 lg:pt-0 lg:pb-0">
+      {/* Background Technical Grid */}
+      <div className="absolute inset-0 bg-grid opacity-100 pointer-events-none"></div>
 
-      <div className="container mx-auto px-8 lg:px-12 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      {/* Global Grain Texture */}
+      <div className="absolute inset-0 bg-noise opacity-15 pointer-events-none z-10"></div>
 
-          {/* Left Side - Content */}
-          <motion.div
-            className="lg:col-span-8 xl:col-span-12"
-            variants={fastStaggerContainer}
-            initial="initial"
-            animate="animate"
+      <div className="container mx-auto px-8 lg:px-12 relative z-20">
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="max-w-5xl"
+        >
+          {/* System Metadata Label */}
+          <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+            <div className="h-px w-10 bg-accent/30"></div>
+            <span className="text-[11px] font-mono uppercase tracking-[0.4em] text-accent/60 font-black">
+              System.Build.03.2025 // Core_v2.6
+            </span>
+          </motion.div>
+
+          {/* High-Impact Name Header */}
+          <motion.h1
+            variants={fadeInUp}
+            className="text-7xl md:text-9xl font-black text-primary-text mb-8 uppercase tracking-tightest leading-[0.85] filter drop-shadow-2xl"
           >
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-3 px-4 py-2 border border-border bg-surface mb-10 relative corner-tl">
-              <Terminal className="w-3 h-3 text-emerald-500" />
-              <span className="text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-secondary-text mt-0.5">
-                {personal.status}
-              </span>
+            {personal.name.split(' ')[0]}<br />
+            <span className="text-secondary-text/30">{personal.name.split(' ')[1]}</span>
+            <span className="text-accent">_</span>
+          </motion.h1>
+
+          {/* Role & Mission Statement */}
+          <div className="grid lg:grid-cols-12 gap-10 items-end">
+            <motion.div variants={fadeInUp} className="lg:col-span-12">
+              <p className="text-xl md:text-2xl text-secondary-text max-w-2xl leading-relaxed mb-0 font-medium tracking-tight">
+                <span className="text-primary-text font-black uppercase mr-2">System Engineer</span>
+                specializing in high-performance automation, architectural integrity, and purposeful digital ecosystems.
+              </p>
             </motion.div>
+          </div>
 
-            <motion.h1
-              className="text-6xl md:text-8xl xl:text-[10rem] font-black text-primary-text mb-10 tracking-tightest leading-[0.8] uppercase flex flex-col"
-              variants={fadeInUp}
-            >
-              <span>ENGINEERING</span>
-              <span className="flex items-center gap-4">
-                DIGITAL
-                <span className="text-accent">_</span>
-              </span>
-              <span className="text-secondary-text opacity-40">SYSTEMS</span>
-            </motion.h1>
-
-            <div className="grid lg:grid-cols-12 gap-8 items-start mb-16">
-              <motion.p
-                className="lg:col-span-5 text-lg md:text-xl text-secondary-text leading-relaxed tracking-tight"
-                variants={fadeInUp}
+          {/* Primary Actions & Social Status */}
+          <motion.div variants={fadeInUp} className="mt-16 flex flex-wrap items-center gap-10">
+            <div className="flex gap-8 border-r border-border/40 pr-10">
+              <a
+                href={social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary-text hover:text-primary-text transition-all duration-300 transform hover:scale-110"
+                aria-label="GitHub Profile"
               >
-                {personal.bio}
-              </motion.p>
-
-              <motion.div
-                className="lg:col-span-6 flex flex-wrap gap-2 pt-2"
-                variants={fastStaggerContainer}
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                href={social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-secondary-text hover:text-primary-text transition-all duration-300 transform hover:scale-110"
+                aria-label="LinkedIn Profile"
               >
-                {skills.map((skill) => (
-                  <motion.div key={skill} variants={fastStaggerItem}>
-                    <Badge
-                      variant="outline"
-                      className="px-4 py-1.5 text-[9px] font-mono uppercase tracking-[0.2em] border-border text-secondary-text/60 hover:text-primary-text hover:border-accent transition-all duration-300 rounded-none bg-surface/30"
-                    >
-                      {skill}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </motion.div>
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                href={`mailto:${personal.email}`}
+                className="text-secondary-text hover:text-primary-text transition-all duration-300 transform hover:scale-110"
+                aria-label="Send Email"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
             </div>
 
-            <motion.div
-              className="flex flex-col sm:flex-row gap-px bg-border border border-border"
-              variants={fadeInUp}
-            >
-              <Button
-                size="lg"
-                className="bg-primary-text text-background hover:bg-accent transition-all duration-500 px-12 py-9 text-[11px] font-black uppercase tracking-[0.3em] rounded-none group flex-1"
-                onClick={() => scrollToSection('#projects')}
-              >
-                Launch Projects
-                <ArrowDown className="ml-3 h-4 w-4 group-hover:translate-y-1 transition-transform" />
-              </Button>
-
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-surface border-none text-primary-text hover:bg-background transition-all duration-500 px-12 py-9 text-[11px] font-black uppercase tracking-[0.3em] rounded-none group flex-1"
-                onClick={downloadResume}
-              >
-                <Download className="mr-3 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                Access Resume
-              </Button>
-            </motion.div>
+            <div className="flex items-center gap-4">
+              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-secondary-text font-bold">
+                Auth.Session: Secure
+              </span>
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Background Decal */}
-      <div className="absolute -bottom-20 -left-10 pointer-events-none select-none opacity-[0.02] text-[20vw] font-black leading-none text-primary-text whitespace-nowrap uppercase">
-        01.BASE
+      {/* Vertical Aesthetic Metadata */}
+      <div className="absolute right-10 bottom-10 hidden lg:block opacity-10">
+        <div className="flex flex-col items-center gap-6">
+          <span className="text-[11px] font-mono uppercase tracking-[0.6em] rotate-90 origin-center translate-y-20 whitespace-nowrap font-black">
+            Protocol.Alpha_Sector
+          </span>
+          <div className="h-40 w-px bg-primary-text mt-32"></div>
+          <ArrowDown className="w-4 h-4 animate-bounce" />
+        </div>
       </div>
     </section>
   );

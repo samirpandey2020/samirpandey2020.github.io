@@ -8,25 +8,17 @@ import Projects from "@/components/sections/Projects"
 import Experience from "@/components/sections/Experience"
 import Contact from "@/components/sections/Contact"
 
-// import Home from "@/pages/Home"
-// import About from "@/pages/About"
-// import Projects from "@/pages/Projects"
-// import Contact from "@/pages/Contact"
-
-// Performance optimization: Check for reduced motion preference
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <Layout>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Experience />
-            <Contact />
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact />
         </Layout>
       </Router>
     </ThemeProvider>

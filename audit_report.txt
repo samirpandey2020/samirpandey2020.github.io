@@ -1,0 +1,11 @@
+# npm audit report
+
+brace-expansion  1.0.0 - 1.1.11
+brace-expansion Regular Expression Denial of Service vulnerability - https://github.com/advisories/GHSA-v6h2-p8h4-qcjw
+fix available via `npm audit fix`
+node_modules/brace-expansion
+
+1 low severity vulnerability
+
+To address all issues, run:
+  npm audit fix

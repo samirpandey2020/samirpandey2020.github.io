@@ -1,136 +1,124 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Palette, Zap, Users, ShieldCheck, Cpu } from 'lucide-react';
+import { Code, Palette, Zap, Users, ShieldCheck } from 'lucide-react';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const About: React.FC = () => {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Clean Code",
-      description: "Scalable Logic-01"
-    },
-    {
-      icon: Palette,
-      title: "UI/UX Design",
-      description: "Visual Core-02"
-    },
-    {
-      icon: Zap,
-      title: "Performance",
-      description: "Optimized-03"
-    },
-    {
-      icon: Users,
-      title: "Collaboration",
-      description: "Team Ops-04"
-    },
-    {
-      icon: ShieldCheck,
-      title: "Security",
-      description: "Protection-05"
-    }
-  ];
-
   return (
-    <section id="about" className="section-padding bg-background relative overflow-hidden bg-grid">
+    <section id="about" className="bg-background relative overflow-hidden section-padding border-t border-border/50">
       <div className="container mx-auto px-8 lg:px-12 relative z-10">
         <motion.div
-          className="max-w-6xl"
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true }}
+          className="space-y-20"
         >
-          <motion.div
-            className="mb-24 flex justify-between items-end border-b border-border pb-12"
-            variants={fadeInUp}
-          >
-            <div>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-accent mb-6 block opacity-50">
-                // SELECTION_01 / CORE_IDENTITY
-              </span>
-              <h2 className="text-4xl md:text-7xl font-black text-primary-text tracking-tightest leading-none uppercase">
-                Purposeful <br />
-                <span className="text-secondary-text opacity-40">Engineering.</span>
+          {/* Section Header with Ref ID */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border/40 pb-12">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-[11px] font-mono text-accent font-black tracking-[0.4em]">REF_01</span>
+                <div className="h-px w-8 bg-accent/30"></div>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
+                About_Me
               </h2>
             </div>
-            <div className="hidden md:block text-right opacity-20">
-              <p className="text-[9px] font-mono uppercase tracking-widest">Type: Resident_Eng</p>
-              <p className="text-[9px] font-mono tracking-widest">Status: Active_Process</p>
-            </div>
-          </motion.div>
+            <p className="text-lg text-secondary-text max-w-md leading-relaxed font-medium">
+              Building high-performance digital systems with architectural precision and a focus on scalability and user impact.
+            </p>
+          </div>
 
-          {/* Bento Grid layout */}
-          <div className="grid lg:grid-cols-12 gap-px bg-border border border-border">
-            {/* Large Card */}
+          {/* Bento Grid Layout */}
+          <div className="grid lg:grid-cols-12 gap-6">
+            {/* Primary Story Card */}
             <motion.div
               variants={fadeInUp}
-              className="lg:col-span-8 p-12 bg-background relative group hover:bg-surface transition-colors corner-tl"
+              className="lg:col-span-8 p-10 bg-surface border border-border group relative overflow-hidden"
             >
-              <div className="absolute top-4 right-4 text-[9px] font-mono uppercase opacity-10">Module.01</div>
-              <h3 className="text-xl font-bold text-primary-text mb-8 uppercase tracking-[0.2em] flex items-center gap-3">
-                <Cpu className="w-4 h-4 text-accent" />
-                Philosophy
-              </h3>
-              <p className="text-xl text-secondary-text leading-relaxed mb-8 max-w-2xl">
-                I'm a full-stack developer with a passion for creating clean, efficient, and user-friendly applications.
-                I enjoy solving complex problems and turning ideas into reality through code.
-              </p>
-              <p className="text-xl text-secondary-text leading-relaxed max-w-2xl">
-                I believe in writing code that's not just functional, but also readable and maintainable.
-                I'm always learning new technologies and best practices to deliver better solutions.
-              </p>
-            </motion.div>
+              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[11px] uppercase tracking-[0.3em]">
+                Bio.Archive
+              </div>
 
-            {/* Small Side Card */}
-            <motion.div
-              variants={fadeInUp}
-              className="lg:col-span-4 p-12 bg-background relative flex flex-col justify-between corner-br border-l border-border/30"
-            >
-              <div className="space-y-10">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold text-primary-text uppercase tracking-[0.2em]">Status</h3>
-                  <span className="text-[8px] font-mono opacity-20">SYSTEM_UP</span>
-                </div>
-
-                <p className="text-secondary-text leading-relaxed text-lg">
-                  Dedicated to creating innovative solutions that make a difference in people's lives through modern technology and design.
+              <h3 className="text-2xl font-black text-primary-text mb-8 uppercase tracking-[0.1em]">The_Mission</h3>
+              <div className="space-y-6 text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
+                <p>
+                  I'm a <span className="text-primary-text font-bold">Full Stack System Engineer</span> based in Kathmandu. My approach combines the technical rigor of software engineering with a minimalist design philosophy.
                 </p>
-
-                <div className="inline-flex items-center gap-4 px-5 py-3 border border-emerald-500/20 bg-emerald-500/5 rounded-none shadow-[0_0_30px_-5px_rgba(16,185,129,0.2)]">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-emerald-500 mt-0.5">Available for work</span>
-                </div>
+                <p>
+                  Specializing in React, Django, and high-performance automation, I focus on building systems that are not just functional, but architectural—clean, maintainable, and highly efficient.
+                </p>
               </div>
 
-              <div className="mt-12 pt-8 border-t border-border/30">
-                <span className="text-6xl font-black text-primary-text opacity-[0.03] select-none">CORE.01</span>
+              {/* Technical Marker Details */}
+              <div className="mt-12 pt-8 border-t border-border/40 grid grid-cols-2 md:grid-cols-4 gap-8">
+                {[
+                  { label: 'Role', value: 'System Eng.' },
+                  { label: 'Base', value: 'Kathmandu' },
+                  { label: 'Exp', value: '5+ Years' },
+                  { label: 'Status', value: 'Operational' }
+                ].map(item => (
+                  <div key={item.label}>
+                    <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-accent/50 mb-1">{item.label}</p>
+                    <p className="text-[12px] font-mono font-black text-primary-text uppercase">{item.value}</p>
+                  </div>
+                ))}
               </div>
             </motion.div>
 
-            {/* Bottom Row Highlights */}
-            <div className="lg:col-span-12 grid grid-cols-2 lg:grid-cols-5 gap-px">
-              {highlights.map((highlight, idx) => (
-                <motion.div
-                  key={highlight.title}
-                  variants={staggerItem}
-                  className="p-10 bg-background relative hover:bg-surface transition-colors group"
-                >
-                  <div className="absolute top-2 right-2 text-[7px] font-mono opacity-20">REF.{idx + 10}</div>
-                  <highlight.icon className="w-5 h-5 text-secondary-text group-hover:text-primary-text transition-colors mb-6 group-hover:rotate-12 duration-500" />
-                  <h4 className="text-[10px] font-black text-primary-text uppercase tracking-[0.2em] mb-3">
-                    {highlight.title}
-                  </h4>
-                  <p className="text-[9px] font-mono text-secondary-text leading-relaxed tracking-widest uppercase opacity-40">
-                    {highlight.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            {/* Availability & Goal Card */}
+            <motion.div
+              variants={fadeInUp}
+              className="lg:col-span-4 p-10 bg-surface border border-border flex flex-col justify-between group relative"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[11px] uppercase tracking-[0.3em]">
+                Sys.Status
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-primary-text mb-4 uppercase tracking-[0.1em]">Goal</h3>
+                <p className="text-secondary-text leading-relaxed font-medium">
+                  Developing state-of-the-art software solutions that solve real-world automation challenges.
+                </p>
+              </div>
+
+              {/* Glowing Status Indicator */}
+              <div className="mt-10 p-5 border border-border bg-background/50 relative">
+                <div className="flex items-center gap-4">
+                  <div className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.8)]"></span>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[11px] font-mono font-black text-primary-text tracking-[0.3em] uppercase">Status: Available</p>
+                    <p className="text-[10px] font-mono text-emerald-500 uppercase tracking-widest opacity-80">READY_FOR_DEPLOYMENT</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Specialization Cards */}
+            {[
+              { icon: Code, title: 'Architectural Code', desc: 'Focusing on clean logic and modular scalability.', id: 'logic-ref' },
+              { icon: Zap, title: 'High Performance', desc: 'Optimizing for speed, efficiency, and low-latency.', id: 'speed-ref' },
+              { icon: ShieldCheck, title: 'System Security', desc: 'Implementing robust, production-ready security protocols.', id: 'auth-ref' }
+            ].map((item, idx) => (
+              <motion.div
+                key={item.title}
+                variants={fadeInUp}
+                className="lg:col-span-4 p-8 bg-surface border border-border hover:border-accent/40 transition-colors group relative"
+              >
+                <div className="absolute top-0 right-0 p-3 opacity-10 font-mono text-[10px] tracking-[0.2em] font-black uppercase">
+                  {item.id}
+                </div>
+                <item.icon className="w-8 h-8 text-accent mb-6 opacity-80 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
+                <h4 className="text-lg font-black text-primary-text mb-3 uppercase tracking-wider">{item.title}</h4>
+                <p className="text-sm text-secondary-text leading-relaxed font-medium">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
