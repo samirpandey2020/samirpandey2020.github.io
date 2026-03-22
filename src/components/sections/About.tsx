@@ -37,12 +37,12 @@ const About: React.FC = () => {
               variants={fadeInUp}
               className="lg:col-span-8 p-10 bg-surface border border-border group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[11px] uppercase tracking-[0.3em]">
+              <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em]">
                 Bio.Archive
               </div>
 
-              <h3 className="text-2xl font-black text-primary-text mb-8 uppercase tracking-[0.1em]">The_Mission</h3>
-              <div className="space-y-6 text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
+              <h3 className="text-xl sm:text-2xl font-black text-primary-text mb-6 sm:mb-8 uppercase tracking-[0.1em]">The_Mission</h3>
+              <div className="space-y-6 text-base sm:text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
                 <p>
                   I'm a <span className="text-primary-text font-bold">Full Stack System Engineer</span> based in Kathmandu. My approach combines the technical rigor of software engineering with a minimalist design philosophy.
                 </p>

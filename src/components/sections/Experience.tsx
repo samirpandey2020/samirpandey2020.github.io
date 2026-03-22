@@ -25,7 +25,7 @@ const Experience: React.FC = () => {
                 <div className="h-px w-8 bg-accent/30"></div>
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
-                Work_History
+                Work History
               </h2>
             </div>
             <p className="text-lg text-secondary-text max-w-md leading-relaxed font-medium">
@@ -41,7 +41,7 @@ const Experience: React.FC = () => {
                 className="group p-10 bg-surface border border-border hover:border-accent/40 transition-all duration-500 relative overflow-hidden"
               >
                 {/* Internal Box Markers */}
-                <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[11px] uppercase tracking-[0.3em]">
+                <div className="absolute top-0 right-0 p-4 opacity-10 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.3em]">
                   EXP_MODULE_{String(idx + 1).padStart(2, '0')}
                 </div>
 
@@ -68,8 +68,8 @@ const Experience: React.FC = () => {
                   </div>
 
                   {/* Role Description */}
-                  <div className="lg:col-span-8 space-y-8">
-                    <p className="text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
+                  <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+                    <p className="text-base sm:text-lg text-secondary-text leading-relaxed font-medium max-w-3xl">
                       {exp.description}
                     </p>
 

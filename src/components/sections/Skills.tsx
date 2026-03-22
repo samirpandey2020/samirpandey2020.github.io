@@ -36,7 +36,7 @@ const Skills: React.FC = () => {
                 <div className="h-px w-8 bg-accent/30"></div>
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
-                Technical_Skills
+                Technical Skills
               </h2>
             </div>
             <p className="text-[13px] md:text-sm font-mono text-secondary-text uppercase tracking-[0.2em] opacity-60">

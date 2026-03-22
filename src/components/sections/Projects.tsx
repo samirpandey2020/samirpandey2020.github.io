@@ -25,7 +25,7 @@ const Projects: React.FC = () => {
                 <div className="h-px w-8 bg-accent/30"></div>
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
-                Project_Archive
+                Project Archive
               </h2>
             </div>
             <p className="text-lg text-secondary-text max-w-md leading-relaxed font-medium">
@@ -55,10 +55,10 @@ const Projects: React.FC = () => {
                       </div>
 
                       <div className="space-y-6">
-                        <h3 className="text-3xl md:text-5xl font-black text-primary-text uppercase tracking-tightest leading-[0.9]">
-                          {project.title.replace(' ', '_')}
+                        <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-text uppercase tracking-tightest leading-tight md:leading-[0.9] break-words md:break-normal">
+                          {project.title}
                         </h3>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-4 sm:mt-6">
                           {project.technologies.map((tag) => (
                             <span
                               key={tag}
@@ -87,9 +87,9 @@ const Projects: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap gap-6 md:gap-12 pt-8 border-t border-border/30">
+                      {/* <div className="flex flex-wrap gap-6 md:gap-12 pt-8 border-t border-border/30">
                         <a
-                          href={project.liveUrl}
+                          href={project?.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="group/btn flex items-center gap-3 text-[12px] font-black uppercase tracking-[0.3em] text-primary-text hover:text-accent transition-colors"
@@ -109,14 +109,9 @@ const Projects: React.FC = () => {
                           <span className="border-b-2 border-border group-hover/btn:border-primary-text pb-1 transition-all">Source_Code</span>
                           <Github className="w-4 h-4 mb-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
-                </div>
-
-                {/* Decorative Technical Marker */}
-                <div className="absolute top-0 right-0 p-4 hidden md:block opacity-5 font-mono text-[10vw] font-black select-none pointer-events-none">
-                  MODULE_{idx < 9 ? `0${idx + 1}` : idx + 1}
                 </div>
               </motion.div>
             ))}
@@ -126,10 +121,10 @@ const Projects: React.FC = () => {
           <div className="pt-20 border-t border-border/40 flex flex-col md:flex-row justify-between items-center gap-8 opacity-40 grayscale hover:grayscale-0 transition-all">
             <div className="flex items-center gap-4 text-[11px] font-mono uppercase tracking-[0.5em] font-black">
               <ArrowUpRight className="w-4 h-4" />
-              <span>Archive_Ref: Total_Projects_{projects.length}</span>
+              <span>Archive_Ref: Total Projects {projects.length}</span>
             </div>
             <div className="flex items-center gap-6">
-              <div className="h-1 w-20 bg-accent/20"></div>
+              <div className="h-px w-20 bg-accent/20"></div>
               <span className="text-[11px] font-mono uppercase tracking-[0.4em] font-black">Secure_Protocol_v2</span>
             </div>
           </div>

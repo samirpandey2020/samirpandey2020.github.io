@@ -69,12 +69,12 @@ export const PORTFOLIO_DATA = {
     additionalSkills: [
       "Responsive Design", "Performance Optimization", "SEO", "Accessibility",
       "Agile/Scrum", "Problem Solving", "Team Collaboration", "Code Review",
-      "API Design", "Microservices", "Serverless", "GraphQL"
+      "API Design", "Serverless", "GraphQL"
     ],
     currentlyLearning: [
       { name: "Next.js 14", color: "green" },
       { name: "Cybersecurity", color: "purple" },
-      { name: "Flutter", color: "orange" },
+      { name: "Golang", color: "orange" },
     ]
   },
 
@@ -89,10 +89,20 @@ export const PORTFOLIO_DATA = {
       image: "/images/projects/ecommerce.jpg",
       category: "FinTech"
     },
+
     {
       title: "RAG Lab",
       description: "A research and implementation lab for Retrieval-Augmented Generation. Features document OCR, vector embeddings, and intelligent retrieval systems.",
       technologies: ["FastAPI", "React", "PostgreSQL", "Minio", "Qdrant", "RAG", "OCR"],
+      githubUrl: "https://github.com/samirpandey2020/RAG-Lab",
+      liveUrl: "https://rag-lab.com",
+      image: "/images/projects/rag-lab.jpg",
+      category: "AI/ML"
+    },
+    {
+      title: "QuickXtract",
+      description: "A Web Appilcation for extracting text from documents with high Precision. Built with React and Django, Gemini API, OCR",
+      technologies: ["React", "PostgreSQL", "OCR", "Gemini API", "Django"],
       githubUrl: "https://github.com/samirpandey2020/RAG-Lab",
       liveUrl: "https://rag-lab.com",
       image: "/images/projects/rag-lab.jpg",
@@ -105,16 +115,7 @@ export const PORTFOLIO_DATA = {
       githubUrl: "https://github.com/samirpandey2020/OCR-Service",
       liveUrl: "https://ocr-service.com",
       image: "/images/projects/task-manager.jpg",
-      category: "API Service"
-    },
-    {
-      title: "Portfolio Website",
-      description: "A modern, responsive portfolio website built with React and TypeScript, featuring smooth animations and dark mode support.",
-      technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      githubUrl: "https://github.com/username/portfolio",
-      liveUrl: "https://portfolio-demo.com",
-      image: "/images/projects/portfolio.jpg",
-      category: "Frontend"
+      category: "AI/ML"
     },
     {
       title: "RPA Orchestrator Platform",
@@ -129,17 +130,17 @@ export const PORTFOLIO_DATA = {
       title: "QuickSamachar",
       description: "A Applicatoin that scrape news from all the news websites and show summary of the news. Built with Flutter and FastAPI, Selenium. worked on fastapi and new scraping parts",
       technologies: ["React", "Django", "RabbitMQ", "Redis", "Docker", "Selenium"],
-      githubUrl: "https://github.com/samirpandey2020/RPA-Orchestrator",
-      liveUrl: "https://rpa-orchestrator.com",
+      // githubUrl: "https://github.com/samirpandey2020/RPA-Orchestrator",
+      // liveUrl: "https://rpa-orchestrator.com",
       image: "/images/projects/chat-app.jpg",
-      category: "Full-Stack"
+      category: "Backend"
     },
     {
       title: "Movie Recommendation System",
       description: "A Movie Recommendation System built with Python and Flask.",
       technologies: ["Python", "Flask", "Pandas", "Numpy", "Scikit-learn"],
-      githubUrl: "https://github.com/samirpandey2020/Movie-Recommendation-System",
-      liveUrl: "https://rpa-orchestrator.com",
+      // githubUrl: "https://github.com/samirpandey2020/Movie-Recommendation-System",
+      // liveUrl: "https://rpa-orchestrator.com",
       image: "/images/projects/chat-app.jpg",
       category: "Full-Stack"
     }
@@ -157,7 +158,8 @@ export const PORTFOLIO_DATA = {
       achievements: [
         "Depolyed Complete Project",
         "Implemented CI/CD pipeline",
-        "Reduced bug reports by 60%"
+        "Reduced bug reports by 60%",
+        "Won ICT Award For Product Category 2025"
       ]
     },
     {

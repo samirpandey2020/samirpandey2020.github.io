@@ -37,51 +37,16 @@ const Hero: React.FC = () => {
           >
             {personal.name.split(' ')[0]}<br />
             <span className="text-secondary-text/30">{personal.name.split(' ')[1]}</span>
-            <span className="text-accent">_</span>
+            {/* <span className="text-accent">_</span> */}
           </motion.h1>
 
-          {/* Role & Mission Statement and Profile Image */}
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <motion.div variants={fadeInUp} className="lg:col-span-8">
+          {/* Role & Mission Statement */}
+          <div className="grid lg:grid-cols-12 gap-10 items-end">
+            <motion.div variants={fadeInUp} className="lg:col-span-12">
               <p className="text-xl md:text-2xl text-secondary-text max-w-2xl leading-relaxed mb-0 font-medium tracking-tight">
                 <span className="text-primary-text font-black uppercase mr-2">System Engineer</span>
                 specializing in high-performance automation, architectural integrity, and purposeful digital ecosystems.
               </p>
-            </motion.div>
-
-            {/* Technical Profile Image Frame */}
-            <motion.div 
-              variants={fadeInUp} 
-              className="lg:col-span-4 relative group"
-            >
-              <div className="relative w-full aspect-square max-w-[300px] mx-auto lg:ml-auto overflow-hidden border border-border/50 bg-surface/50 p-2">
-                {/* Decorative Corners */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent/40 z-30"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent/40 z-30"></div>
-                
-                {/* Image Container with Filters */}
-                <div className="relative w-full h-full overflow-hidden bg-background">
-                  <motion.img
-                    src={personal.profileImage}
-                    alt={personal.name}
-                    className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700 ease-out"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  
-                  {/* Scanline Overlay Effect */}
-                  <div className="absolute inset-0 bg-scanlines opacity-[0.03] pointer-events-none z-10"></div>
-                  
-                  {/* Subtle technical overlay */}
-                  <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-10 transition-opacity duration-700 z-20"></div>
-                </div>
-
-                {/* Technical Label */}
-                <div className="absolute -bottom-6 right-0 flex items-center gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
-                  <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-secondary-text font-black">Archive_ID: P-04</span>
-                  <div className="h-px w-6 bg-accent/40"></div>
-                </div>
-              </div>
             </motion.div>
           </div>
 

@@ -4,17 +4,38 @@ import { Mail, MapPin, Send, Github, Linkedin, Twitter, Terminal, CheckCircle2 }
 import { Button } from '@/components/ui/button';
 import PORTFOLIO_DATA from '@/data/portfolio';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
+import emailjs from '@emailjs/browser';
 
 const { personal, social } = PORTFOLIO_DATA;
 
 const Contact: React.FC = () => {
-  const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formRef.current) return;
+
     setFormState('sending');
-    // Simulate API call
-    setTimeout(() => setFormState('success'), 1500);
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('EmailJS configuration missing');
+      setFormState('error');
+      return;
+    }
+
+    emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
+      .then(() => {
+        setFormState('success');
+      })
+      .catch((error: any) => {
+        console.error('Email sending failed:', error);
+        setFormState('error');
+      });
   };
 
   return (
@@ -38,7 +59,7 @@ const Contact: React.FC = () => {
                 <div className="h-px w-8 bg-accent/30"></div>
               </div>
               <h2 className="text-5xl md:text-7xl font-black text-primary-text uppercase tracking-tightest leading-none">
-                Contact_System
+                Contact System
               </h2>
             </div>
             <p className="text-lg text-secondary-text max-w-md leading-relaxed font-medium">
@@ -50,31 +71,30 @@ const Contact: React.FC = () => {
             {/* Contact Information */}
             <div className="lg:col-span-5 space-y-12">
               <div className="space-y-10">
-                <motion.div variants={fadeInUp} className="group flex items-start gap-8 p-8 bg-surface border border-border hover:border-accent/40 transition-colors relative">
-                  {/* Metadata Tag */}
-                  <div className="absolute top-0 right-0 p-3 opacity-10 font-mono text-[10px] uppercase tracking-[0.2em] font-black">
-                    MAIL_PROTO
+                <motion.div variants={fadeInUp} className="group flex flex-col md:flex-row items-center md:items-start gap-6 p-8 bg-surface border border-border hover:border-accent/40 transition-all duration-500 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-3 opacity-5 font-mono text-[10px] uppercase tracking-[0.2em] font-black">
+                    MAIL_P
                   </div>
-                  <div className="p-4 bg-background border border-border text-accent">
+                  <div className="p-4 bg-background border border-border text-accent shrink-0 group-hover:scale-110 transition-transform">
                     <Mail className="w-6 h-6" aria-hidden="true" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="text-center md:text-left space-y-2 overflow-hidden w-full">
                     <p className="text-[11px] font-mono uppercase tracking-[0.3em] text-accent/50 font-black">Direct_Email</p>
-                    <p className="text-xl font-black text-primary-text tracking-tightest uppercase select-all">{personal.email}</p>
+                    <p className="text-xl font-black text-primary-text tracking-tightest uppercase select-all break-all">{personal.email}</p>
                   </div>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="group flex items-start gap-8 p-8 bg-surface border border-border hover:border-accent/40 transition-colors relative">
-                  <div className="absolute top-0 right-0 p-3 opacity-10 font-mono text-[10px] uppercase tracking-[0.2em] font-black">
-                    GEO_REF
+                <motion.div variants={fadeInUp} className="group flex flex-col md:flex-row items-center md:items-start gap-6 p-8 bg-surface border border-border hover:border-accent/40 transition-all duration-500 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 p-3 opacity-5 font-mono text-[10px] uppercase tracking-[0.2em] font-black">
+                    GEO_R
                   </div>
-                  <div className="p-4 bg-background border border-border text-accent">
+                  <div className="p-4 bg-background border border-border text-accent shrink-0 group-hover:scale-110 transition-transform">
                     <MapPin className="w-6 h-6" aria-hidden="true" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="text-center md:text-left space-y-2">
                     <p className="text-[11px] font-mono uppercase tracking-[0.3em] text-accent/50 font-black">Location</p>
                     <p className="text-xl font-black text-primary-text tracking-tightest uppercase">{personal.location}</p>
-                    <p className="text-[11px] font-mono text-secondary-text/40 tracking-[0.2em]">Kathmandu_Nepal // 27.7172° N, 85.3240° E</p>
+                    <p className="text-[11px] font-mono text-secondary-text/40 tracking-[0.2em]">KTM_NP // 27.7N, 85.3E</p>
                   </div>
                 </motion.div>
               </div>
@@ -107,9 +127,9 @@ const Contact: React.FC = () => {
             {/* Contact Form */}
             <motion.div
               variants={fadeInUp}
-              className="lg:col-span-7"
+              className="lg:col-span-7 mt-8 lg:mt-0"
             >
-              <div className="p-10 bg-surface border border-border relative overflow-hidden">
+              <div className="p-6 sm:p-10 bg-surface border border-border relative overflow-hidden">
                 {/* Decorative Box Grid */}
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-grid opacity-10 pointer-events-none"></div>
 
@@ -132,13 +152,39 @@ const Contact: React.FC = () => {
                       Reset_Terminal
                     </Button>
                   </motion.div>
+                ) : formState === 'error' ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="py-12 flex flex-col items-center justify-center text-center space-y-6"
+                  >
+                    <div className="w-16 h-16 rounded-full border-2 border-red-500 flex items-center justify-center mb-2 shadow-[0_0_30px_rgba(239,68,68,0.3)]">
+                      <span className="text-red-500 font-black text-2xl">!</span>
+                    </div>
+                    <h3 className="text-3xl font-black text-primary-text uppercase tracking-widest text-red-500">Signal_Lost</h3>
+                    <p className="text-secondary-text max-w-sm leading-relaxed font-medium">
+                      Transmission failed. The communication channel encountered an error. Please check your connection or try again.
+                    </p>
+                    <Button
+                      variant="outline"
+                      onClick={() => setFormState('idle')}
+                      className="mt-8 border-red-500/50 text-red-500 text-xs tracking-[0.4em] uppercase py-6 px-10 rounded-none hover:bg-red-500 hover:text-white transition-all font-black"
+                    >
+                      Retry_Link
+                    </Button>
+                  </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                  <form 
+                    ref={formRef}
+                    onSubmit={handleSubmit} 
+                    className="space-y-8 relative z-10"
+                  >
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="space-y-3">
                         <label htmlFor="name" className="text-[11px] font-mono uppercase tracking-[0.3em] text-accent/60 font-black ml-1">01. Access_ID (Name)</label>
                         <input
                           id="name"
+                          name="user_name"
                           type="text"
                           required
                           placeholder="IDENTIFY YOURSELF"
@@ -150,6 +196,7 @@ const Contact: React.FC = () => {
                         <label htmlFor="email" className="text-[11px] font-mono uppercase tracking-[0.3em] text-accent/60 font-black ml-1">02. Return_Signal (Email)</label>
                         <input
                           id="email"
+                          name="user_email"
                           type="email"
                           required
                           placeholder="USER@DOMAIN.COM"
@@ -162,6 +209,7 @@ const Contact: React.FC = () => {
                       <label htmlFor="message" className="text-[11px] font-mono uppercase tracking-[0.3em] text-accent/60 font-black ml-1">03. Communication_Payload (Message)</label>
                       <textarea
                         id="message"
+                        name="message"
                         required
                         placeholder="TRANSMIT YOUR MESSAGE HERE..."
                         className="w-full bg-background border border-border min-h-[220px] p-5 focus:outline-none focus:border-accent/40 text-[12px] font-mono tracking-widest placeholder:text-secondary-text/20 uppercase font-black leading-loose resize-none"
