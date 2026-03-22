@@ -55,6 +55,52 @@ GUIDELINES:
 4. Don't mention you are an AI model like Gemini, just act as "Samir's System Assistant".`;
   };
 
+  const handleSendProxy = async (message: string) => {
+    const proxyUrl = import.meta.env.VITE_CHAT_API_URL;
+    const response = await fetch(proxyUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message,
+        systemPrompt: generateSystemPrompt()
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Proxy error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.text;
+  };
+
+  const handleSendDirect = async (message: string) => {
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('API_KEY_MISSING');
+    }
+
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // Use 2.0 as it's common
+
+    const chat = model.startChat({
+      history: [
+        {
+          role: "user",
+          parts: [{ text: generateSystemPrompt() }],
+        },
+        {
+          role: "model",
+          parts: [{ text: "SYSTEM_ACCESS_GRANTED. I am ready to assist with inquiries regarding Samir's portfolio." }],
+        },
+      ],
+    });
+
+    const result = await chat.sendMessage(message);
+    const response = await result.response;
+    return response.text();
+  };
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -65,45 +111,36 @@ GUIDELINES:
     };
 
     setMessages(prev => [...prev, userMessage]);
+    const currentInput = input;
     setInput('');
     setIsLoading(true);
 
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error('API key missing');
+      const proxyUrl = import.meta.env.VITE_CHAT_API_URL;
+      let text = '';
+
+      if (proxyUrl) {
+        text = await handleSendProxy(currentInput);
+      } else {
+        text = await handleSendDirect(currentInput);
       }
 
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-      const chat = model.startChat({
-        history: [
-          {
-            role: "user",
-            parts: [{ text: generateSystemPrompt() }],
-          },
-          {
-            role: "model",
-            parts: [{ text: "SYSTEM_ACCESS_GRANTED. I am ready to assist with inquiries regarding Samir's portfolio." }],
-          },
-        ],
-      });
-
-      const result = await chat.sendMessage(input);
-      const response = await result.response;
-      const text = response.text();
-
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: text.toUpperCase(), // Keeping the technical aesthetic
+        content: text.toUpperCase(),
         timestamp: new Date()
       }]);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Chat error:', error);
+      let errorMsg = "ERROR: DATA_FETCH_FAILURE. PLEASE TRY AGAIN LATER.";
+      
+      if (error.message === 'API_KEY_MISSING' && !import.meta.env.VITE_CHAT_API_URL) {
+        errorMsg = "ERROR: SYSTEM_CONFIG_MISSING. PLEASE CONFIGURE API_KEY OR PROXY_URL.";
+      }
+
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: "ERROR: DATA_FETCH_FAILURE. PLEASE TRY AGAIN LATER.",
+        content: errorMsg,
         timestamp: new Date()
       }]);
     } finally {
