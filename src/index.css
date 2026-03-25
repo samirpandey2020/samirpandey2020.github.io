@@ -5,9 +5,16 @@
 
 /* Force dark mode by default */
 html {
-  color-scheme: dark;
   scroll-behavior: smooth;
-  background-color: #0B0B0C;
+  background-color: var(--background);
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
 }
 
 @theme inline {
@@ -44,7 +51,28 @@ html {
   --text-primary: #E5E5E5;
   --text-secondary: #9CA3AF;
   --accent: #FFFFFF;
+  --grid-color: rgba(255, 255, 255, 0.02);
   --radius: 4px;
+}
+
+.light {
+  --background: #F8F9FA; /* Premium Off-White */
+  --surface: #FFFFFF;    /* Elevated Surface */
+  --border: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #374151;
+  --accent: #000000;
+  --grid-color: rgba(0, 0, 0, 0.04);
+}
+
+.dark {
+  --background: #0B0B0C;
+  --surface: #111113;
+  --border: #1F1F23;
+  --text-primary: #E5E5E5;
+  --text-secondary: #9CA3AF;
+  --accent: #FFFFFF;
+  --grid-color: rgba(255, 255, 255, 0.02);
 }
 
 @layer base {
@@ -53,7 +81,7 @@ html {
   }
 
   body {
-    @apply bg-background text-primary-text antialiased selection:bg-white selection:text-black;
+    @apply bg-background text-primary-text antialiased selection:bg-accent selection:text-background;
     font-family: 'Inter', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
@@ -92,8 +120,8 @@ html {
   .bg-grid {
     background-size: 40px 40px;
     background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
   }
 
   .section-padding {

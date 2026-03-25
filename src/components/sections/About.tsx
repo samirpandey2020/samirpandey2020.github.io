@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Code, Palette, Zap, Users, ShieldCheck } from 'lucide-react';
+import { Code, Palette, Zap, Users, ShieldCheck, FileDown } from 'lucide-react';
+import PORTFOLIO_DATA from '@/data/portfolio';
+const { personal } = PORTFOLIO_DATA;
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const About: React.FC = () => {
@@ -56,7 +58,7 @@ const About: React.FC = () => {
                 {[
                   { label: 'Role', value: 'System Eng.' },
                   { label: 'Base', value: 'Kathmandu' },
-                  { label: 'Exp', value: '5+ Years' },
+                  { label: 'Exp', value: '3+ Years' },
                   { label: 'Status', value: 'Operational' }
                 ].map(item => (
                   <div key={item.label}>
@@ -81,6 +83,16 @@ const About: React.FC = () => {
                 <p className="text-secondary-text leading-relaxed font-medium">
                   Developing state-of-the-art software solutions that solve real-world automation challenges.
                 </p>
+                <div className="mt-8">
+                  <a
+                    href={personal.resume}
+                    download
+                    className="flex items-center justify-center gap-2 w-full py-4 bg-accent text-background font-black text-[11px] uppercase tracking-widest hover:bg-white transition-all transform hover:scale-[1.02]"
+                  >
+                    <FileDown className="w-4 h-4" />
+                    Archive_Resume.pdf
+                  </a>
+                </div>
               </div>
 
               {/* Glowing Status Indicator */}

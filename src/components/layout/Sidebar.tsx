@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter, FileDown, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/components/theme/theme-provider';
 import PORTFOLIO_DATA from '@/data/portfolio';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
 const { personal, social } = PORTFOLIO_DATA;
 
 const Sidebar: React.FC = () => {
+    const { theme, setTheme } = useTheme();
     const [activeSection, setActiveSection] = useState('hero');
 
     const navLinks = [
@@ -79,6 +81,15 @@ const Sidebar: React.FC = () => {
                 <p className="text-[11px] text-secondary-text font-bold uppercase tracking-[0.2em] leading-relaxed opacity-60 font-mono">
                     System Engineer
                 </p>
+
+                {/* Theme Toggle Button */}
+                <button
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    className="absolute bottom-6 right-10 p-2 text-secondary-text hover:text-accent transition-colors"
+                    aria-label="Toggle Theme"
+                >
+                    {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                </button>
             </div>
 
             {/* Navigation Section */}
@@ -140,6 +151,22 @@ const Sidebar: React.FC = () => {
                                 <link.icon className="w-4 h-4" />
                             </motion.a>
                         ))}
+                        <motion.a
+                            href={personal.resume}
+                            download
+                            className="p-2 bg-accent/10 border border-accent/20 text-accent hover:bg-accent hover:text-background transition-all duration-300 rounded-sm group relative"
+                            aria-label="Download Resume PDF"
+                            title="Download Resume PDF"
+                            variants={fadeInUp}
+                            initial="initial"
+                            animate="animate"
+                            transition={{ delay: 0.8 }}
+                        >
+                            <FileDown className="w-4 h-4" />
+                            <span className="absolute left-full ml-4 px-2 py-1 bg-surface border border-border text-[9px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 pointer-events-none">
+                                Download_Resume
+                            </span>
+                        </motion.a>
                     </div>
 
                     <div className="flex items-center gap-3">

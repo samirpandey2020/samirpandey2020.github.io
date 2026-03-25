@@ -12,7 +12,7 @@ export const PORTFOLIO_DATA = {
     bio: "Full-Stack Developer passionate about creating beautiful and functional digital experiences",
     description: "I'm a passionate full-stack developer who loves turning ideas into reality through code. With a strong foundation in both front-end and back-end technologies, I create seamless digital experiences that users love.",
     profileImage: "/images/pics2.jpeg",
-    resume: "/documents/resume.pdf",
+    resume: "/documents/resume2025(ict).pdf",
     status: "Available for opportunities"
   },
 

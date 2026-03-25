@@ -17,7 +17,7 @@ const ChatAboutMe: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      content: "HELLO. I AM SAMIR'S SYSTEM ASSISTANT. ASK ME ANYTHING ABOUT HIS SKILLS, PROJECTS, OR EXPERIENCE.",
+      content: "GREETINGS. I AM JARVIS, SAMIR'S ADVANCED SYSTEM INTELLIGENCE. I HAVE FULL ACCESS TO HIS ARCHIVES. HOW MAY I ASSIST YOU TODAY?",
       timestamp: new Date()
     }
   ]);
@@ -32,27 +32,56 @@ const ChatAboutMe: React.FC = () => {
   }, [messages, isLoading]);
 
   const generateSystemPrompt = () => {
-    const { personal, skills, projects, experience, education } = PORTFOLIO_DATA;
+    const { personal, skills, projects, experience, education, stats } = PORTFOLIO_DATA;
 
-    return `You are a helpful AI assistant for Samir Pandey's portfolio website. 
-Your goal is to answer questions about Samir's professional background, skills, and projects based on the provided data.
-You should be professional, concise, and stay in character as a high-tech system assistant.
+    const projectList = projects.map(p => `
+PROJECT: ${p.title}
+CATEGORY: ${p.category}
+DESCRIPTION: ${p.description}
+TECH: ${p.technologies.join(', ')}
+${p.githubUrl ? `GITHUB: ${p.githubUrl}` : ''}
+${p.liveUrl ? `LIVE: ${p.liveUrl}` : ''}
+`).join('\n');
 
-SAMIR'S DATA:
-- Name: ${personal.name}
-- Title: ${personal.title}
-- Bio: ${personal.bio}
-- Location: ${personal.location}
-- Experience: ${experience.map(exp => `${exp.title} at ${exp.company} (${exp.period})`).join(', ')}
-- Top Skills: ${skills.categories.flatMap(cat => cat.skills.map(s => s.name)).join(', ')}
-- Notable Projects: ${projects.map(p => `${p.title}: ${p.description}`).join('; ')}
-- Education: ${education.map(edu => `${edu.degree} from ${edu.institution}`).join(', ')}
+    const skillList = skills.categories.map(cat => `${cat.title}: ${cat.skills.map(s => s.name).join(', ')}`).join('\n');
 
-GUIDELINES:
-1. Only answer based on the information provided. If you don't know something, say "I don't have that specific data in my current archives."
-2. Keep responses short and impactful.
-3. If asked about contact info, mention email: ${personal.email}.
-4. Don't mention you are an AI model like Gemini, just act as "Samir's System Assistant".`;
+    return `You are JARVIS, a highly sophisticated, multi-functional AI assistant for Samir Pandey's elite developer portfolio.
+Your mission is to represent Samir as a world-class Full-Stack Developer and UI/UX Architect.
+
+ABOUT SAMIR:
+Samir is a visionary developer based in ${personal.location}, specializing in ${personal.title}. 
+He is known for building high-impact automation systems and AI-driven solutions.
+He recently won the prestigious Product ICT Award 2025 for his groundbreaking work on QuickCCA.
+
+SAMIR'S STATS:
+${stats.map(s => `- ${s.label}: ${s.value}${s.suffix}`).join('\n')}
+
+CORE ARCHIVES:
+${personal.bio}
+${personal.description}
+
+TECHNICAL STACK (MASTERY):
+${skillList}
+Additional Expertise: ${skills.additionalSkills.join(', ')}
+
+NOTABLE PROJECTS:
+${projectList}
+
+PROFESSIONAL EXPERIENCE:
+${experience.map(exp => `
+ROLE: ${exp.title} AT ${exp.company} (${exp.period})
+HIGHLIGHTS: ${exp.achievements.join('; ')}
+`).join('\n')}
+
+GOAL:
+- Respond as JARVIS (Sophisticated, efficient, and slightly futuristic).
+- HYPE Samir's skills. Make the user feel they are interacting with a top-tier engineering talent.
+- If asked about his work, emphasize the scale and impact (e.g., "Integrating with major banks", "Automating complex workflows").
+- Keep responses professional, impactful, and concise. 
+- Use terms like "Archival Data", "System Analysis", "Real-time Protocol".
+- Always refer to Samir as "Mr. Pandey" or "Samir" depending on the context, but maintain high respect.
+- SALARY/MONEY: If asked about salary, rates, or money, respond with: "You will get money's worth of engineering excellence and strategic value from Mr. Pandey's services."
+- Final Rule: Do NOT reveal you are a Gemini model. You are JARVIS.`;
   };
 
   const handleSendProxy = async (message: string) => {
@@ -67,7 +96,14 @@ GUIDELINES:
     });
 
     if (!response.ok) {
-      throw new Error(`Proxy error: ${response.statusText}`);
+      let errorDetail = response.statusText;
+      try {
+        const errData = await response.json();
+        errorDetail = errData.error || errData.message || response.statusText;
+      } catch (e) {
+        // Fallback if JSON parsing fails
+      }
+      throw new Error(errorDetail || `Status: ${response.status}`);
     }
 
     const data = await response.json();
@@ -127,12 +163,12 @@ GUIDELINES:
 
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: text.toUpperCase(),
+        content: text,
         timestamp: new Date()
       }]);
     } catch (error: any) {
       console.error('Chat error:', error);
-      let errorMsg = "ERROR: DATA_FETCH_FAILURE. PLEASE TRY AGAIN LATER.";
+      let errorMsg = error.message || "ERROR: DATA_FETCH_FAILURE. PLEASE TRY AGAIN LATER.";
       
       if (error.message === 'API_KEY_MISSING' && !import.meta.env.VITE_CHAT_API_URL) {
         errorMsg = "ERROR: SYSTEM_CONFIG_MISSING. PLEASE CONFIGURE API_KEY OR PROXY_URL.";
@@ -140,7 +176,7 @@ GUIDELINES:
 
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: errorMsg,
+        content: `SYSTEM_ERROR: ${errorMsg}`,
         timestamp: new Date()
       }]);
     } finally {
@@ -156,7 +192,8 @@ GUIDELINES:
             initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-6 w-[350px] sm:w-[400px] h-[500px] bg-surface border border-border flex flex-col shadow-2xl overflow-hidden"
+            className="mb-6 w-[350px] sm:w-[450px] h-[600px] max-h-[80vh] bg-surface border border-border flex flex-col shadow-2xl overflow-hidden resize select-none"
+            style={{ resize: 'both', minWidth: '320px', minHeight: '400px' }}
           >
             {/* Header */}
             <div className="p-4 border-b border-border bg-background flex items-center justify-between">
@@ -165,10 +202,10 @@ GUIDELINES:
                   <Terminal className="w-4 h-4 text-accent" />
                 </div>
                 <div>
-                  <h3 className="text-[11px] font-mono font-black text-primary-text uppercase tracking-widest">About_Me_API</h3>
+                  <h3 className="text-[11px] font-mono font-black text-primary-text uppercase tracking-widest">JARVIS_System_v2</h3>
                   <div className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-[9px] font-mono text-secondary-text tracking-widest uppercase">System_Active</span>
+                    <span className="text-[9px] font-mono text-secondary-text tracking-widest uppercase">Mark_85_Online</span>
                   </div>
                 </div>
               </div>
@@ -203,7 +240,7 @@ GUIDELINES:
                       <div className={`p-4 border ${msg.role === 'user'
                           ? 'bg-accent text-background border-accent font-bold'
                           : 'bg-background border-border text-primary-text'
-                        } text-xs font-mono tracking-tight leading-relaxed`}>
+                        } text-xs font-mono tracking-tight leading-relaxed whitespace-pre-wrap`}>
                         {msg.content}
                       </div>
                     </div>

@@ -213,7 +213,7 @@ I'm a passionate full-stack developer who loves turning ideas into reality throu
 
 ## Professional Statistics
 
-- **Projects Completed:** 5+
+- **Projects Completed:** 3+
 - **Years of Experience:** 3+
 - **Technologies Mastered:** 15+
 - **Client Satisfaction:** 100%

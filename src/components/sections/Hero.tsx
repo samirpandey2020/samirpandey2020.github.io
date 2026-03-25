@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowDown, FileDown } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
@@ -77,6 +77,14 @@ const Hero: React.FC = () => {
                 aria-label="Send Email"
               >
                 <Mail className="w-5 h-5" />
+              </a>
+              <a
+                href={personal.resume}
+                download
+                className="flex items-center gap-2 px-6 py-2.5 bg-accent text-background font-black text-[11px] uppercase tracking-widest hover:bg-white transition-all transform hover:scale-105"
+              >
+                <FileDown className="w-4 h-4" />
+                Download Resume
               </a>
             </div>
 

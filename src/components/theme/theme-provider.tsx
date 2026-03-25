@@ -1,35 +1,54 @@
 "use client"
 
-import React, { createContext, useContext, useEffect } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
+
+type Theme = "dark" | "light"
 
 type ThemeProviderProps = {
   children: React.ReactNode
+  defaultTheme?: Theme
+  storageKey?: string
 }
 
 type ThemeProviderState = {
-  theme: "dark"
+  theme: Theme
+  setTheme: (theme: Theme) => void
 }
 
 const initialState: ThemeProviderState = {
   theme: "dark",
+  setTheme: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
+export function ThemeProvider({
+  children,
+  defaultTheme = "dark",
+  storageKey = "portfolio-theme",
+  ...props
+}: ThemeProviderProps) {
+  const [theme, setTheme] = useState<Theme>(
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+  )
+
   useEffect(() => {
-    // Force dark mode
     const root = window.document.documentElement
-    root.classList.remove("light")
-    root.classList.add("dark")
-  }, [])
+
+    root.classList.remove("light", "dark")
+    root.classList.add(theme)
+    localStorage.setItem(storageKey, theme)
+  }, [theme, storageKey])
 
   const value = {
-    theme: "dark" as const,
+    theme,
+    setTheme: (theme: Theme) => {
+      setTheme(theme)
+    },
   }
 
   return (
-    <ThemeProviderContext.Provider value={value}>
+    <ThemeProviderContext.Provider {...props} value={value}>
       {children}
     </ThemeProviderContext.Provider>
   )
