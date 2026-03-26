@@ -85,7 +85,7 @@ GOAL:
   };
 
   const handleSendProxy = async (message: string) => {
-    const proxyUrl = import.meta.env.VITE_CHAT_API_URL;
+    const proxyUrl = 'https://gemini-proxy.pandeysamir0404.workers.dev/';
     const response = await fetch(proxyUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -152,7 +152,7 @@ GOAL:
     setIsLoading(true);
 
     try {
-      const proxyUrl = import.meta.env.VITE_CHAT_API_URL;
+      const proxyUrl = 'https://gemini-proxy.pandeysamir0404.workers.dev/';
       let text = '';
 
       if (proxyUrl) {
@@ -170,7 +170,7 @@ GOAL:
       console.error('Chat error:', error);
       let errorMsg = error.message || "ERROR: DATA_FETCH_FAILURE. PLEASE TRY AGAIN LATER.";
       
-      if (error.message === 'API_KEY_MISSING' && !import.meta.env.VITE_CHAT_API_URL) {
+      if (error.message === 'API_KEY_MISSING') {
         errorMsg = "ERROR: SYSTEM_CONFIG_MISSING. PLEASE CONFIGURE API_KEY OR PROXY_URL.";
       }
 
