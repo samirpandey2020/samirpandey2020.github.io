@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://samirpandey2020.github.io/sitemap.xml
+Sitemap: https://samirpandey.name.np/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1 
