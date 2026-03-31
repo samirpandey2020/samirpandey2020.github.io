@@ -82,7 +82,7 @@ export const PORTFOLIO_DATA = {
   projects: [
     {
       title: "QuickCCA",
-      description: "Won the Product ICT Award 2025. An innovative solution in banking automation that processes inward check clearing using OCR/ICR technology. Integrated with major banks including Global IME, Nabil, Kumari, and NMB.",
+      description: "Won the Product ICT Award 2025. An innovative solution in banking automation that processes inward check clearing using OCR/ICR technology. Integrated with several major commercial banks in Nepal.",
       technologies: ["Django", "React", "PostgreSQL", "Selenium", "OCR/ICR", "Banking Automation"],
       githubUrl: "https://github.com/samirpandey2020/QuickCCA",
       liveUrl: "https://quickcca.com",

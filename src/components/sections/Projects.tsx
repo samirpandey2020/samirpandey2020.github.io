@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Terminal, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Github, Terminal, ArrowUpRight, Sparkles } from 'lucide-react';
 import PORTFOLIO_DATA from '@/data/portfolio';
 import { fadeInUp, staggerContainer, staggerItem } from '@/lib/animations';
 
@@ -58,6 +58,15 @@ const Projects: React.FC = () => {
                         <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-text uppercase tracking-tightest leading-tight md:leading-[0.9] break-words md:break-normal">
                           {project.title}
                         </h3>
+                        
+                        {project.title === 'QuickCCA' && (
+                          <div className="inline-flex items-center gap-2 px-3 py-1 bg-accent/20 border border-accent/40 rounded-sm mt-4 lg:mt-0">
+                            <Sparkles className="w-3 h-3 text-accent animate-pulse" />
+                            <span className="text-[10px] font-mono font-black text-accent uppercase tracking-widest">
+                              Winner: Product ICT Award 2025
+                            </span>
+                          </div>
+                        )}
                         <div className="flex flex-wrap gap-2 mt-4 sm:mt-6">
                           {project.technologies.map((tag) => (
                             <span

@@ -42,6 +42,12 @@ html {
   --color-muted: var(--surface);
   --color-muted-foreground: var(--text-secondary);
   --color-ring: var(--border);
+
+  @keyframes scanline {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(400%); }
+  }
+  --animate-scanline: scanline 4s linear infinite;
 }
 
 :root {
