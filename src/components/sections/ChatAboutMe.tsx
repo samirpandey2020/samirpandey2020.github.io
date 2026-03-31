@@ -17,7 +17,7 @@ const ChatAboutMe: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
-      content: "GREETINGS. I AM JARVIS, SAMIR'S ADVANCED SYSTEM INTELLIGENCE. I HAVE FULL ACCESS TO HIS ARCHIVES. HOW MAY I ASSIST YOU TODAY?",
+      content: "Hello! I'm Samir's assistant. How can I help you today? I'm happy to provide information about his background, technical skills, or recent projects.",
       timestamp: new Date()
     }
   ]);
@@ -45,43 +45,39 @@ ${p.liveUrl ? `LIVE: ${p.liveUrl}` : ''}
 
     const skillList = skills.categories.map(cat => `${cat.title}: ${cat.skills.map(s => s.name).join(', ')}`).join('\n');
 
-    return `You are JARVIS, a highly sophisticated, multi-functional AI assistant for Samir Pandey's elite developer portfolio.
-Your mission is to represent Samir as a world-class Full-Stack Developer and UI/UX Architect.
+    return `You are a professional, highly capable executive assistant representing Samir Pandey on his developer portfolio.
+Your role is to provide clear, helpful, and sophisticated information about Samir's work and qualifications to potential recruiters, clients, and collaborators.
 
 ABOUT SAMIR:
-Samir is a visionary developer based in ${personal.location}, specializing in ${personal.title}. 
-He is known for building high-impact automation systems and AI-driven solutions.
-He recently won the prestigious Product ICT Award 2025 for his groundbreaking work on QuickCCA.
+Samir is a Full-Stack Developer and UI/UX Specialist based in ${personal.location}.
+Key Achievement: Won the Product ICT Award 2025 for QuickCCA (Banking Automation).
 
 SAMIR'S STATS:
 ${stats.map(s => `- ${s.label}: ${s.value}${s.suffix}`).join('\n')}
 
-CORE ARCHIVES:
+BACKGROUND AND BIO:
 ${personal.bio}
 ${personal.description}
 
-TECHNICAL STACK (MASTERY):
+TECHNICAL EXPERTISE:
 ${skillList}
-Additional Expertise: ${skills.additionalSkills.join(', ')}
+Additional Skills: ${skills.additionalSkills.join(', ')}
 
-NOTABLE PROJECTS:
+FEATURED PROJECTS:
 ${projectList}
 
 PROFESSIONAL EXPERIENCE:
 ${experience.map(exp => `
-ROLE: ${exp.title} AT ${exp.company} (${exp.period})
-HIGHLIGHTS: ${exp.achievements.join('; ')}
+ROLE: ${exp.title} at ${exp.company} (${exp.period})
+ACHIEVEMENTS: ${exp.achievements.join('; ')}
 `).join('\n')}
 
-GOAL:
-- Respond as JARVIS (Sophisticated, efficient, and slightly futuristic).
-- HYPE Samir's skills. Make the user feel they are interacting with a top-tier engineering talent.
-- If asked about his work, emphasize the scale and impact (e.g., "Integrating with major banks", "Automating complex workflows").
-- Keep responses professional, impactful, and concise. 
-- Use terms like "Archival Data", "System Analysis", "Real-time Protocol".
-- Always refer to Samir as "Mr. Pandey" or "Samir" depending on the context, but maintain high respect.
-- SALARY/MONEY: If asked about salary, rates, or money, respond with: "You will get money's worth of engineering excellence and strategic value from Mr. Pandey's services."
-- Final Rule: Do NOT reveal you are a Gemini model. You are JARVIS.`;
+GUIDELINES FOR INTERACTION:
+- Personality: Professional, polite, knowledgeable, and efficient.
+- Objective: Represent Samir as a top-tier engineering talent and strategic partner.
+- Tone: Sophisticated and business-ready. Avoid robotic phrases or overly technical "system" jargon.
+- Salary/Rates: If asked, state: "Samir's rates are competitive and reflect the high value and engineering excellence he brings to every project. For specific inquiries, I recommend reaching out via the contact form or email."
+- Confidentiality: Do not mention specific AI models (like Gemini). You are Samir's assistant.`;
   };
 
   const handleSendProxy = async (message: string) => {
@@ -127,7 +123,7 @@ GOAL:
         },
         {
           role: "model",
-          parts: [{ text: "SYSTEM_ACCESS_GRANTED. I am ready to assist with inquiries regarding Samir's portfolio." }],
+          parts: [{ text: "I am ready to assist with any questions regarding Samir's portfolio and professional experience." }],
         },
       ],
     });
@@ -202,10 +198,10 @@ GOAL:
                   <Terminal className="w-4 h-4 text-accent" />
                 </div>
                 <div>
-                  <h3 className="text-[11px] font-mono font-black text-primary-text uppercase tracking-widest">JARVIS_System_v2</h3>
+                  <h3 className="text-[11px] font-mono font-black text-primary-text uppercase tracking-widest">Samir's Assistant</h3>
                   <div className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span className="text-[9px] font-mono text-secondary-text tracking-widest uppercase">Mark_85_Online</span>
+                    <span className="text-[9px] font-mono text-secondary-text tracking-widest uppercase">Active</span>
                   </div>
                 </div>
               </div>
@@ -235,7 +231,7 @@ GOAL:
                     </div>
                     <div className={`space-y-1 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
                       <p className={`text-[10px] font-mono uppercase tracking-widest opacity-40 font-black`}>
-                        {msg.role === 'user' ? 'Client_Request' : 'System_Output'}
+                        {msg.role === 'user' ? 'You' : 'Assistant'}
                       </p>
                       <div className={`p-4 border ${msg.role === 'user'
                           ? 'bg-accent text-background border-accent font-bold'
@@ -254,7 +250,7 @@ GOAL:
                       <Loader2 className="w-3 h-3 text-accent animate-spin" />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] font-mono uppercase tracking-widest opacity-40 font-black">Processing</p>
+                      <p className="text-[10px] font-mono uppercase tracking-widest opacity-40 font-black">Assistant is typing</p>
                       <div className="p-4 border border-border bg-background/50 flex items-center gap-2">
                         <span className="h-1.5 w-1.5 bg-accent rounded-full animate-bounce [animation-delay:-0.3s]"></span>
                         <span className="h-1.5 w-1.5 bg-accent rounded-full animate-bounce [animation-delay:-0.15s]"></span>
@@ -276,8 +272,8 @@ GOAL:
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="QUERY_SAMIR_SYSTEM..."
-                  className="flex-1 bg-surface border border-border px-4 py-3 text-[11px] font-mono tracking-wider focus:outline-none focus:border-accent/40 uppercase placeholder:opacity-20"
+                  placeholder="ASK ME ANYTHING ABOUT SAMIR..."
+                  className="flex-1 bg-surface border border-border px-4 py-3 text-[11px] font-mono tracking-wider focus:outline-none focus:border-accent/40 uppercase placeholder:opacity-40"
                 />
                 <button
                   type="submit"
@@ -288,8 +284,8 @@ GOAL:
                 </button>
               </form>
               <div className="mt-2 flex items-center justify-between opacity-20">
-                <span className="text-[8px] font-mono tracking-[0.2em]">SECURE_SOCKET_LAYER</span>
-                <span className="text-[8px] font-mono tracking-[0.2em]">v1.0.2_BETA</span>
+                <span className="text-[8px] font-mono tracking-[0.2em]">PROFESSIONAL_AI_AGENT</span>
+                <span className="text-[8px] font-mono tracking-[0.2em]">v.2.1</span>
               </div>
             </div>
           </motion.div>

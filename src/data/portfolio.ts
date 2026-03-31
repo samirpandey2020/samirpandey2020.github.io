@@ -20,7 +20,7 @@ export const PORTFOLIO_DATA = {
   social: {
     github: "https://github.com/samirpandey2020",
     linkedin: "https://linkedin.com/in/samir-pandey-6b54b5279/",
-    twitter: "https://twitter.com/samirpandey2020",
+    twitter: "https://x.com/samirpandey2020",
     email: "mailto:pandeysamir0404@gmail.com"
   },
 
